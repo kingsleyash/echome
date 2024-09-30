@@ -14,6 +14,10 @@ let midiVol = [];
 let buffOn = [];
 let buffSelect = [];
 let buffVol = [];
+let scaleSelect = [];
+
+let loading = 0;
+let prev_time = 0;
 
 let m=0;
 
@@ -145,6 +149,8 @@ let s = function(p) {
       buffOn[i]=0;
     }
 
+		prev_time=p.millis();
+
     drawInputs();
 
 	};
@@ -166,6 +172,8 @@ let s = function(p) {
 
     getInputs();
 
+		if(loading!=num_sensors) drawLoadingscreen();
+
 		//for (let i = 0; i<num_sensors; i++) {
 		//	if(myBLE[i].isConnected()){
 		//		p.fill(p.color(0, 255, 0));
@@ -176,6 +184,20 @@ let s = function(p) {
 		//}
 
 	};
+
+	function drawLoadingscreen(){
+			p.strokeWeight(0);
+			p.fill(255, 255, 255, 200);
+			p.rect(0, 0, innerWidth, innerHeight);
+			p.textSize(64);
+			p.fill(0, 102, 153);
+			p.textAlign(p.LEFT, p.CENTER);
+			if((p.millis()-prev_time)>0) p.text('LOADING', innerWidth/2, innerHeight/2);
+			if((p.millis()-prev_time)>1000) p.text('LOADING.', innerWidth/2, innerHeight/2);
+			if((p.millis()-prev_time)>2000) p.text('LOADING..', innerWidth/2, innerHeight/2);
+			if((p.millis()-prev_time)>3000) p.text('LOADING...', innerWidth/2, innerHeight/2);
+			if((p.millis()-prev_time)>4000) prev_time=p.millis();
+	}
 
   function drawTitle(){
       p.textSize(48);
@@ -288,12 +310,24 @@ let s = function(p) {
         buffVol[i].position(175, 580);
         buffVol[i].size(90);
         buffVol[i].hide();
-    }
+
+				scaleSelect[i] = p.createSelect();
+        scaleSelect[i].position(70, 620);
+				scaleSelect[i].option('Major', 0);
+				scaleSelect[i].option('Minor', 1);
+				scaleSelect[i].option('Iwato', 2);
+				scaleSelect[i].option('Pentatonic', 3);
+				scaleSelect[i].option('Niavent', 4);
+				scaleSelect[i].option('Blues', 5);
+				scaleSelect[i].changed(scaleChanged);
+				scaleSelect[i].hide();
+  }
 
     // Create a slider and place it at the top of the canvas.
     slider = p.createSlider(0, 1, 0, 0.01);
     slider.position(50, 360);
     slider.size(230);
+		slider.hide();
   }
 
   function midiChanged() {
@@ -310,6 +344,13 @@ let s = function(p) {
     sendToMax(current_sensor, "buff_inst", buffSelect[current_sensor].value());
   }
 
+	function scaleChanged(index) {
+		//let buffSelection = buffSelect[current_sensor].value();
+		//var retVal = buffSelection.split(' ');
+		console.log('set scale on sensor '+sensor_nums[current_sensor]+' '+scaleSelect[current_sensor].value());
+		sendToMax(current_sensor, "scale", scaleSelect[current_sensor].value());
+	}
+
   function drawInstructions(){
 
     // make input box
@@ -325,7 +366,10 @@ let s = function(p) {
     p.fill(0, 102, 153);
     p.strokeWeight(0);
     p.textAlign(p.LEFT, p.CENTER);
-    p.text('master volume', 110, 340);
+    p.text('master volume', 110, 345);
+
+		p.textAlign(p.LEFT, p.TOP);
+		p.text('1. Click on centre circle to switch on the audio \n\n2. Click on the sensor number to connect and access the settings for each sensor \n\n3. Click on the grey squares below to turn on midi or buffer instrument', 50, 120, 240, 430);
 
   }
 
@@ -342,12 +386,12 @@ let s = function(p) {
         p.text('sensor '+sensor_nums[current_sensor], 165, 430);
 
         //p.noFill();
-        if(midiOn[current_sensor]) p.fill(0, 102, 153);
-        else p.fill(153, 102, 0);
+        if(midiOn[current_sensor]) p.fill(0, 202, 53);
+        else p.fill(50, 0, 0);
         p.rect(75, 460, 70, 70);
 
-        if(buffOn[current_sensor]) p.fill(0, 102, 153);
-        else p.fill(153, 102, 0);
+        if(buffOn[current_sensor]) p.fill(0, 202, 53);
+        else p.fill(50, 0, 0);
         p.rect(185, 460, 70, 70);
       }
 
@@ -371,62 +415,67 @@ let s = function(p) {
 
   p.mousePressed = function() {
 
-    for(i=0; i<num_sensors; i++) {
-      let x = 100+250*p.sin(i*(p.TWO_PI/num_sensors)); //calculate xPos
-      let y = 250*p.cos(i*(p.TWO_PI/num_sensors)); //calculate yPos
-      //console.log('mouse clicked at x:'+p.mouseX+' y:'+p.mouseY);
-      if(p.mouseX>(((innerWidth/2)+x)-50) && p.mouseX<(((innerWidth/2)+x)+50) && p.mouseY>(((innerHeight/2)-y)-50) && p.mouseY<(((innerHeight/2)-y)+50)) {
-        //console.log('mouse clicked in circle '+ i);
-        if(current_sensor) {
-          midiSelect[current_sensor].hide();   //hide the previous sensor selectors
-          buffSelect[current_sensor].hide();
-          midiVol[current_sensor].hide();
-          buffVol[current_sensor].hide();
-        }
-        current_sensor=i;
-        console.log("Sensor selected: "+sensor_nums[i]);
-        //console.log(midiSelect[current_sensor].selected());
-        connectAndStartNotify(i);
+		if (loading==num_sensors) {   // No mouse press until all devices loaded
 
-        midiSelect[current_sensor].show();
-        midiSelect[current_sensor].value(midiSelect[current_sensor].value());
-        buffSelect[current_sensor].show();
-        buffSelect[current_sensor].value(buffSelect[current_sensor].value());
-        midiVol[current_sensor].show();
-        buffVol[current_sensor].show();
-      };
-    }
+	    for(i=0; i<num_sensors; i++) {
+	      let x = 100+250*p.sin(i*(p.TWO_PI/num_sensors)); //calculate xPos
+	      let y = 250*p.cos(i*(p.TWO_PI/num_sensors)); //calculate yPos
+	      //console.log('mouse clicked at x:'+p.mouseX+' y:'+p.mouseY);
+	      if(p.mouseX>(((innerWidth/2)+x)-50) && p.mouseX<(((innerWidth/2)+x)+50) && p.mouseY>(((innerHeight/2)-y)-50) && p.mouseY<(((innerHeight/2)-y)+50)) {
+	        //console.log('mouse clicked in circle '+ i);
+	        if(current_sensor) {
+	          midiSelect[current_sensor].hide();   //hide the previous sensor selectors
+	          buffSelect[current_sensor].hide();
+	          midiVol[current_sensor].hide();
+	          buffVol[current_sensor].hide();
+						scaleSelect[current_sensor].hide();
+	        }
+	        current_sensor=i;
+	        console.log("Sensor selected: "+sensor_nums[i]);
+	        //console.log(midiSelect[current_sensor].selected());
+	        connectAndStartNotify(i);
 
-    if(p.mouseX>((100+innerWidth/2)-innerHeight/12) && p.mouseX<((100+innerWidth/2)+innerHeight/12) && p.mouseY>((innerHeight/2)-innerHeight/12) && p.mouseY<((innerHeight/2)+innerHeight/12)) {
-      //console.log("mouse clicked in centre circle");
-      startAudio();
-    };
+	        midiSelect[current_sensor].show();
+	        midiSelect[current_sensor].value(midiSelect[current_sensor].value());
+	        buffSelect[current_sensor].show();
+	        buffSelect[current_sensor].value(buffSelect[current_sensor].value());
+	        midiVol[current_sensor].show();
+	        buffVol[current_sensor].show();
+					scaleSelect[current_sensor].show();
+					scaleSelect[current_sensor].value(scaleSelect[current_sensor].value());
+	      };
+	    }
 
-    if(p.mouseX>80&&p.mouseX<150&&p.mouseY>460&&p.mouseY<530) {
-      if(midiOn[current_sensor]==0) {
-        console.log('midi on '+sensor_nums[current_sensor]);
-        sendToMax(current_sensor, "midi_on", 1);
-        midiOn[current_sensor]=1;
-      } else {
-        console.log('midi off '+sensor_nums[current_sensor]);
-        sendToMax(current_sensor, "midi_on", 0);
-        midiOn[current_sensor]=0;
-      }
-      //sendToMax('midi_on')
-    }
-    if(p.mouseX>180&&p.mouseX<250&&p.mouseY>460&&p.mouseY<530) {
-      if(buffOn[current_sensor]==0) {
-        console.log('buff on '+sensor_nums[current_sensor]);
-        sendToMax(current_sensor, "buff_on", 1);
-        buffOn[current_sensor]=1;
-      } else {
-        console.log('buff off '+sensor_nums[current_sensor]);
-        sendToMax(current_sensor, "buff_on", 0);
-        buffOn[current_sensor]=0;
-      }
-    }
-    // Uncomment to prevent any default behavior.
-    // return false;
+	    if(p.mouseX>((100+innerWidth/2)-innerHeight/12) && p.mouseX<((100+innerWidth/2)+innerHeight/12) && p.mouseY>((innerHeight/2)-innerHeight/12) && p.mouseY<((innerHeight/2)+innerHeight/12)) {
+	      //console.log("mouse clicked in centre circle");
+	      startAudio();
+				slider.show();
+	    };
+
+	    if(p.mouseX>80&&p.mouseX<150&&p.mouseY>460&&p.mouseY<530) {
+	      if(midiOn[current_sensor]==0) {
+	        console.log('midi on '+sensor_nums[current_sensor]);
+	        sendToMax(current_sensor, "midi_on", 1);
+	        midiOn[current_sensor]=1;
+	      } else {
+	        console.log('midi off '+sensor_nums[current_sensor]);
+	        sendToMax(current_sensor, "midi_on", 0);
+	        midiOn[current_sensor]=0;
+	      }
+	      //sendToMax('midi_on')
+	    }
+	    if(p.mouseX>180&&p.mouseX<250&&p.mouseY>460&&p.mouseY<530) {
+	      if(buffOn[current_sensor]==0) {
+	        console.log('buff on '+sensor_nums[current_sensor]);
+	        sendToMax(current_sensor, "buff_on", 1);
+	        buffOn[current_sensor]=1;
+	      } else {
+	        console.log('buff off '+sensor_nums[current_sensor]);
+	        sendToMax(current_sensor, "buff_on", 0);
+	        buffOn[current_sensor]=0;
+	      }
+	    }
+		}
   }
 };
 
@@ -483,6 +532,9 @@ async function main() { // Note that main is an async function to support async 
 	  	device[i].parameters.forEach(parameter => {
 			      console.log(parameter.name);
 			});
+
+			loading+=1;
+			console.log("Loaded " + loading + " out of " + num_sensors);
 		}
 
 
