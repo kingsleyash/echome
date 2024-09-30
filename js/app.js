@@ -189,12 +189,18 @@ let s = function(p) {
 			p.strokeWeight(0);
 			p.fill(255, 255, 255, 200);
 			p.rect(0, 0, innerWidth, innerHeight);
+
+			p.textSize(24);
+			p.fill(0, 102, 153);
+			p.textAlign(p.CENTER, p.CENTER);
+			p.text('Loading sounds and instruments for sensor '+ (loading+1)+' out of '+num_sensors, innerWidth/2, (innerHeight/2)+70);
+
 			p.textSize(64);
 			p.fill(0, 102, 153);
-			p.textAlign(p.LEFT, p.CENTER);
-			if((p.millis()-prev_time)>0) p.text('LOADING', innerWidth/2, innerHeight/2);
-			if((p.millis()-prev_time)>1000) p.text('LOADING.', innerWidth/2, innerHeight/2);
-			if((p.millis()-prev_time)>2000) p.text('LOADING..', innerWidth/2, innerHeight/2);
+			p.textAlign(p.CENTER, p.CENTER);
+			if((p.millis()-prev_time)>0) p.text('LOADING   ', innerWidth/2, innerHeight/2);
+			if((p.millis()-prev_time)>1000) p.text('LOADING.  ', innerWidth/2, innerHeight/2);
+			if((p.millis()-prev_time)>2000) p.text('LOADING.. ', innerWidth/2, innerHeight/2);
 			if((p.millis()-prev_time)>3000) p.text('LOADING...', innerWidth/2, innerHeight/2);
 			if((p.millis()-prev_time)>4000) prev_time=p.millis();
 	}
