@@ -324,7 +324,7 @@ let s = function(p) {
   }
 
     // Create a slider and place it at the top of the canvas.
-    slider = p.createSlider(0, 1, 0, 0.01);
+    slider = p.createSlider(0, 1, 1, 0.01);
     slider.position(50, 360);
     slider.size(230);
 		slider.hide();
