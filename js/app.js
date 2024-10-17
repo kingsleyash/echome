@@ -15,11 +15,14 @@ let buffOn = [];
 let buffSelect = [];
 let buffVol = [];
 let scaleSelect = [];
+let loadFile = [];
 
 let loading = 0;
 let prev_time = 0;
 
 let m=0;
+
+const bufferId = "user";
 
 const characteristicsUUID = {
 	pitch:"19b10011-e8f2-537e-4f6c-d104768a1214",
@@ -304,6 +307,7 @@ let s = function(p) {
         buffSelect[i].option('Feedbackclick', 4);
         buffSelect[i].option('Hardwet', 5);
         buffSelect[i].option('Intiband', 6);
+        buffSelect[i].option('User', 7);
         buffSelect[i].changed(buffChanged);
         buffSelect[i].hide();
 
@@ -327,6 +331,10 @@ let s = function(p) {
 				scaleSelect[i].option('Blues', 5);
 				scaleSelect[i].changed(scaleChanged);
 				scaleSelect[i].hide();
+
+				loadFile[i] = p.createFileInput(processFile);
+				loadFile[i].position(180, 618);
+				loadFile[i].hide();
   }
 
     // Create a slider and place it at the top of the canvas.
@@ -335,6 +343,30 @@ let s = function(p) {
     slider.size(230);
 		slider.hide();
   }
+
+	function processFile(file) {
+		//const objectURL = URL.createObjectURL(file);
+		console.log("Loaded: " + file.name + " " + file.type + " " + file.data);
+		const sound = p.loadSound(file, onceLoaded);
+	}
+
+	function onceLoaded(e){
+				//e.play();
+				const reader = new FileReader();
+				reader.readAsArrayBuffer(e.getBlob());
+				//console.log("LOADING", reader.readyState); // readyState will be 1
+
+				reader.onloadend = () => {
+				  console.log("Data File Loaded", reader.readyState); // readyState will be 2
+					// Decode the received Data as an AudioBuffer
+					const audioBuf = context.decodeAudioData(reader.result, twiceLoaded);
+				};
+	}
+
+	function twiceLoaded(buffer) {
+			console.log("Audio File Loaded"); // readyState will be 2
+						device[current_sensor].setDataBuffer(bufferId, buffer);
+	}
 
   function midiChanged() {
     //let midiSelection = midiSelect[current_sensor].value();
@@ -409,7 +441,7 @@ let s = function(p) {
       //if(g!=0) sendToMax("volume",Number(g));
       setVolume(g);
 
-      if(current_sensor) {
+      if(current_sensor!=null) {
         g = midiVol[current_sensor].value();
         sendToMax(current_sensor, "midi_vol", g);
 
@@ -435,6 +467,7 @@ let s = function(p) {
 	          midiVol[current_sensor].hide();
 	          buffVol[current_sensor].hide();
 						scaleSelect[current_sensor].hide();
+						loadFile[current_sensor].hide();
 	        }
 	        current_sensor=i;
 	        console.log("Sensor selected: "+sensor_nums[i]);
@@ -449,6 +482,7 @@ let s = function(p) {
 	        buffVol[current_sensor].show();
 					scaleSelect[current_sensor].show();
 					scaleSelect[current_sensor].value(scaleSelect[current_sensor].value());
+					loadFile[current_sensor].show();
 	      };
 	    }
 
