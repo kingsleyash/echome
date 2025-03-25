@@ -90,20 +90,18 @@ function checkBrowser(){
   //const Bowser = require("bowser"); // CommonJS
   const browser = bowser.getParser(window.navigator.userAgent);
   console.log(`The current browser name is "${browser.getBrowserName()}"`);
-  if((browser.getBrowserName())=='Chrome') {
-    var retVal = prompt("Enter sensor numbers seperated by a space", "eg 1 2 3");
-    console.log("Creating buttons for sensor ", retVal);
-    if (retVal==null || retVal==("eg 1 2 3")) {
-      sensor_nums=null;
-      num_sensors=0;
-    } else {
-      sensor_nums = retVal.split(' ')
-      num_sensors=sensor_nums.length;
-    }
-    return 0;
+
+  if((browser.getBrowserName())!='Chrome') {
+		alert("Unsupported browser...");
+	}
+  var retVal = prompt("Enter sensor numbers seperated by a space", "eg 1 2 3");
+  console.log("Creating buttons for sensor ", retVal);
+  if (retVal==null || retVal==("eg 1 2 3")) {
+    sensor_nums=null;
+    num_sensors=0;
   } else {
-    alert("Unsupported browser! Please use Chrome");
-    return 1;
+    sensor_nums = retVal.split(' ')
+    num_sensors=sensor_nums.length;
   }
 }
 
@@ -140,8 +138,7 @@ let s = function(p) {
 
 		p.createCanvas(innerWidth, innerHeight);
 
-    while(checkBrowser()){
-    }
+    checkBrowser();
 
     main();
 		//connectXebra();
