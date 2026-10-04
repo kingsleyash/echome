@@ -90,10 +90,10 @@ function connectSensor(i) {
 		});
 		handleData[i] = function(data) {
 
-		    console.log("IMU DATA:", data);
-		    console.log("TYPE:", typeof data);
-		    console.log("CONSTRUCTOR:", data?.constructor?.name);
-		    console.log("BYTE LENGTH:", data?.byteLength);
+		    //console.log("IMU DATA:", data);
+		    //console.log("TYPE:", typeof data);
+		    //console.log("CONSTRUCTOR:", data?.constructor?.name);
+		    //console.log("BYTE LENGTH:", data?.byteLength);
 		
 		    const imu = decodeIMU(data);
 		
@@ -107,7 +107,7 @@ function connectSensor(i) {
 		    sendToMax(i, "gyroY", imu.gyroY);
 		    sendToMax(i, "gyroZ", imu.gyroZ);
 		
-		    sendToMax(i, "timestamp", imu.timestamp);
+		    //sendToMax(i, "timestamp", imu.timestamp);
 		};
 
 }
