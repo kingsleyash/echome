@@ -80,19 +80,52 @@ function connectSensor(i) {
 			//sendToMax((sensor_nums[i]*5)+" "+Number(data));
 		});
 		handleRolls[i]=(function(data){
-      sendToMax(i,"roll", Number(data));
+      		sendToMax(i,"roll", Number(data));
 			//sendToMax(((sensor_nums[i]*5)+1)+" "+Number(data));
 		});
 		handleYaws[i]=(function(data){
-      sendToMax(i,"yaw", Number(data));
+      		sendToMax(i,"yaw", Number(data));
 			//sendToMax(((sensor_nums[i]*5)+2)+" "+Number(data));
 		});
 		handleData[i]=(function(data){
-			console.log("data: "+Number(data));
-			sendToMax(i,"data", Number(data));
-			//sendToMax(((sensor_nums[i]*5)+2)+" "+Number(data));
+			const imu = decodeIMU(data);
+
+    		sendToMax(sensor, "accelX", imu.accelX);
+    		sendToMax(sensor, "accelY", imu.accelY);
+    		sendToMax(sensor, "accelZ", imu.accelZ);
+
+    		sendToMax(sensor, "gyroX", imu.gyroX);
+    		sendToMax(sensor, "gyroY", imu.gyroY);
+    		sendToMax(sensor, "gyroZ", imu.gyroZ);
+
+    		sendToMax(sensor, "timestamp", imu.timestamp);
 		});
 }
+
+function decodeIMU(data) {
+    const view = new DataView(data);
+
+    const timestamp = view.getUint32(0, true);
+
+    const accelX = view.getInt16(4, true) / 1000.0;
+    const accelY = view.getInt16(6, true) / 1000.0;
+    const accelZ = view.getInt16(8, true) / 1000.0;
+
+    const gyroX = view.getInt16(10, true) / 100.0;
+    const gyroY = view.getInt16(12, true) / 100.0;
+    const gyroZ = view.getInt16(14, true) / 100.0;
+
+    return {
+        timestamp,
+        accelX,
+        accelY,
+        accelZ,
+        gyroX,
+        gyroY,
+        gyroZ
+    };
+}
+
 
 
 function checkBrowser(){
