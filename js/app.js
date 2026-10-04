@@ -88,6 +88,7 @@ function connectSensor(i) {
 			//sendToMax(((sensor_nums[i]*5)+2)+" "+Number(data));
 		});
 		handleData[i]=(function(data){
+			console.log("data: "+Number(data));
 			sendToMax(i,"data", Number(data));
 			//sendToMax(((sensor_nums[i]*5)+2)+" "+Number(data));
 		});
