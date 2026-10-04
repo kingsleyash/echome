@@ -11475,7 +11475,7 @@ function parseData(data, t, encoding) {
   var result = void 0;
   var decoder = void 0;
   switch (type) {
-    case 'unit8':
+    case 'uint8':
       result = data.getUint8(0);
       break;
 
@@ -11511,6 +11511,10 @@ function parseData(data, t, encoding) {
       // TODO: have the ability to choose different string encoding: like utf16
       decoder = new TextDecoder(encoding || 'utf8');
       result = decoder.decode(data);
+      break;
+
+	case 'custom':
+      result = data;
       break;
 
     default:
