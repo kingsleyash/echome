@@ -87,19 +87,51 @@ function connectSensor(i) {
       		sendToMax(i,"yaw", Number(data));
 			//sendToMax(((sensor_nums[i]*5)+2)+" "+Number(data));
 		});
-		handleData[i]=(function(data){
+	handleData[i] = (function(data) {
+
+    console.log("========== IMU PACKET ==========");
+    console.log("data:", data);
+    console.log("typeof:", typeof data);
+    console.log("constructor:", data?.constructor?.name);
+    console.log("length:", data?.length);
+    console.log("byteLength:", data?.byteLength);
+
+    if (data instanceof Uint8Array) {
+        console.log("Uint8Array:", Array.from(data));
+    }
+
+    if (data instanceof ArrayBuffer) {
+        console.log("ArrayBuffer:", Array.from(new Uint8Array(data)));
+    }
+
+    if (data instanceof DataView) {
+        console.log(
+            "DataView:",
+            Array.from(
+                new Uint8Array(
+                    data.buffer,
+                    data.byteOffset,
+                    data.byteLength
+                )
+            )
+        );
+    }
+
+});
+/*		handleData[i]=(function(data){
 			const imu = decodeIMU(data);
 
-    		sendToMax(sensor, "accelX", imu.accelX);
-    		sendToMax(sensor, "accelY", imu.accelY);
-    		sendToMax(sensor, "accelZ", imu.accelZ);
+    		sendToMax(i, "accelX", imu.accelX);
+    		sendToMax(i, "accelY", imu.accelY);
+    		sendToMax(i, "accelZ", imu.accelZ);
 
-    		sendToMax(sensor, "gyroX", imu.gyroX);
-    		sendToMax(sensor, "gyroY", imu.gyroY);
-    		sendToMax(sensor, "gyroZ", imu.gyroZ);
+    		sendToMax(i, "gyroX", imu.gyroX);
+    		sendToMax(i, "gyroY", imu.gyroY);
+    		sendToMax(i, "gyroZ", imu.gyroZ);
 
-    		sendToMax(sensor, "timestamp", imu.timestamp);
+    		sendToMax(i, "timestamp", imu.timestamp);
 		});
+		*/
 }
 
 function decodeIMU(data) {
