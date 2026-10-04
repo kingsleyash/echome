@@ -3,9 +3,12 @@ var num_sensors;
 var current_sensor;
 var sensor_nums = [];
 var gotChars=[];
+
 var handlePitches = [];
 var handleRolls = [];
 var handleYaws = [];
+var handleData = [];
+
 var onDisconnected = [];
 const myBLE = [];
 let midiOn = [];
@@ -28,14 +31,14 @@ const characteristicsUUID = {
 	pitch:"19b10011-e8f2-537e-4f6c-d104768a1214",
 	roll:"19b10012-e8f2-537e-4f6c-d104768a1214",
 	yaw:"19b10013-e8f2-537e-4f6c-d104768a1214",
-	//led:"19b10011-e8f2-537e-4f6c-d104768a1214",
-	//button:"19b10012-e8f2-537e-4f6c-d104768a1214"
+	data:"7e400002-b5a3-f393-e0a9-e50e24dcca9e"
 }
 
 let pitchCharacteristic=[];
 let rollCharacteristic=[];
 let yawCharacteristic=[];
-let ledCharacteristic=[];
+let dataCharacteristic=[];
+
 
 function connectSensor(i) {
 
@@ -57,8 +60,10 @@ function connectSensor(i) {
 					}else if(characteristics[j].uuid == characteristicsUUID.yaw){
 						yawCharacteristic[sensor_nums[i]-1] = characteristics[j];
 						myBLE[i].startNotifications(yawCharacteristic[sensor_nums[i]-1], handleYaws[i]);
-					}else if(characteristics[j].uuid == characteristicsUUID.led){
-						ledCharacteristic[i] = characteristics[i];
+					}else if(characteristics[j].uuid == characteristicsUUID.data){
+						dataCharacteristic[sensor_nums[i]-1] = characteristics[j];
+						myBLE[i].startNotifications(dataCharacteristic[sensor_nums[i]-1], handleData[i]);
+
 					}
 				}
 			}
@@ -82,6 +87,10 @@ function connectSensor(i) {
       sendToMax(i,"yaw", Number(data));
 			//sendToMax(((sensor_nums[i]*5)+2)+" "+Number(data));
 		});
+		handleData[i]=(function(data){
+			sendToMax(i,"data", Number(data));
+			//sendToMax(((sensor_nums[i]*5)+2)+" "+Number(data));
+		});
 }
 
 
@@ -90,8 +99,9 @@ function checkBrowser(){
   //const Bowser = require("bowser"); // CommonJS
   const browser = bowser.getParser(window.navigator.userAgent);
   console.log(`The current browser name is "${browser.getBrowserName()}"`);
+
   if((browser.getBrowserName())!='Chrome') {
-  	alert("Unsupported browser! Please use Chrome");
+		alert("Unsupported browser...");
 	}
   var retVal = prompt("Enter sensor numbers seperated by a space", "eg 1 2 3");
   console.log("Creating buttons for sensor ", retVal);
