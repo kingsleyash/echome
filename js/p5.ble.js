@@ -11471,7 +11471,7 @@ exports.default = parseData;
 // https://opensource.org/licenses/MIT
 
 function parseData(data, t, encoding) {
-  var type = t ? t.toLowerCase() : 'unit8';
+  var type = t ? t.toLowerCase() : 'uint8';
   var result = void 0;
   var decoder = void 0;
   switch (type) {
