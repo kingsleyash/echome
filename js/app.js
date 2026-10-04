@@ -103,7 +103,7 @@ function connectSensor(i) {
 }
 
 function decodeIMU(data) {
-    const view = new DataView(data);
+    const view = data;
 
     const timestamp = view.getUint32(0, true);
 
