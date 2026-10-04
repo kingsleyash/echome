@@ -1,6 +1,6 @@
 [
   {
-    "id": "A#4_perc",
+    "id": "As4_perc",
     "file": "media/perc_As4.wav"
   },
   {
@@ -8,7 +8,7 @@
     "file": "media/perc_E5.wav"
   },
   {
-    "id": "D#5_perc",
+    "id": "Ds5_perc",
     "file": "media/perc_Ds5.wav"
   },
   {
@@ -16,7 +16,7 @@
     "file": "media/perc_D5.wav"
   },
   {
-    "id": "C#5_perc",
+    "id": "Cs5_perc",
     "file": "media/perc_Cs5.wav"
   },
   {
@@ -32,7 +32,7 @@
     "file": "media/perc_A4.wav"
   },
   {
-    "id": "G#4_perc",
+    "id": "Gs4_perc",
     "file": "media/perc_Gs4.wav"
   },
   {
@@ -40,7 +40,7 @@
     "file": "media/perc_G4.wav"
   },
   {
-    "id": "F#4_perc",
+    "id": "Fs4_perc",
     "file": "media/perc_Fs4.wav"
   },
   {
@@ -52,7 +52,7 @@
     "file": "media/perc_E4.wav"
   },
   {
-    "id": "D#4_perc",
+    "id": "Ds4_perc",
     "file": "media/perc_Ds4.wav"
   },
   {
@@ -60,7 +60,7 @@
     "file": "media/perc_D4.wav"
   },
   {
-    "id": "C#4_perc",
+    "id": "Cs4_perc",
     "file": "media/perc_Cs4.wav"
   },
   {
@@ -72,7 +72,7 @@
     "file": "media/perc_B3.wav"
   },
   {
-    "id": "A#3_perc",
+    "id": "As3_perc",
     "file": "media/perc_As3.wav"
   },
   {
@@ -80,7 +80,7 @@
     "file": "media/perc_A3.wav"
   },
   {
-    "id": "G#3_perc",
+    "id": "Gs3_perc",
     "file": "media/perc_Gs3.wav"
   },
   {
@@ -88,7 +88,7 @@
     "file": "media/perc_G3.wav"
   },
   {
-    "id": "F#3_perc",
+    "id": "Fs3_perc",
     "file": "media/perc_Fs3.wav"
   },
   {
@@ -100,7 +100,7 @@
     "file": "media/perc_E3.wav"
   },
   {
-    "id": "D#3_perc",
+    "id": "Ds3_perc",
     "file": "media/perc_Ds3.wav"
   },
   {
@@ -108,7 +108,7 @@
     "file": "media/perc_D3.wav"
   },
   {
-    "id": "C#3_perc",
+    "id": "Cs3_perc",
     "file": "media/perc_Cs3.wav"
   },
   {
@@ -120,7 +120,7 @@
     "file": "media/perc_B2.wav"
   },
   {
-    "id": "A#2_perc",
+    "id": "As2_perc",
     "file": "media/perc_As2.wav"
   },
   {
@@ -128,7 +128,7 @@
     "file": "media/perc_A2.wav"
   },
   {
-    "id": "G#2_perc",
+    "id": "Gs2_perc",
     "file": "media/perc_Gs2.wav"
   },
   {
@@ -136,7 +136,7 @@
     "file": "media/perc_G2.wav"
   },
   {
-    "id": "F#2_perc",
+    "id": "Fs2_perc",
     "file": "media/perc_Fs2.wav"
   },
   {
@@ -152,7 +152,7 @@
     "file": "media/guitar_E5.wav"
   },
   {
-    "id": "D#5_guitar",
+    "id": "Ds5_guitar",
     "file": "media/guitar_Ds5.wav"
   },
   {
@@ -164,7 +164,7 @@
     "file": "media/guitar_B4.wav"
   },
   {
-    "id": "A#4_guitar",
+    "id": "As4_guitar",
     "file": "media/guitar_As4.wav"
   },
   {
@@ -172,7 +172,7 @@
     "file": "media/guitar_A4.wav"
   },
   {
-    "id": "G#4_guitar",
+    "id": "Gs4_guitar",
     "file": "media/guitar_Gs4.wav"
   },
   {
@@ -180,7 +180,7 @@
     "file": "media/guitar_G4.wav"
   },
   {
-    "id": "F#4_guitar",
+    "id": "Fs4_guitar",
     "file": "media/guitar_Fs4.wav"
   },
   {
@@ -192,7 +192,7 @@
     "file": "media/guitar_E4.wav"
   },
   {
-    "id": "D#4_guitar",
+    "id": "Ds4_guitar",
     "file": "media/guitar_Ds4.wav"
   },
   {
@@ -200,7 +200,7 @@
     "file": "media/guitar_D4.wav"
   },
   {
-    "id": "C#4_guitar",
+    "id": "Cs4_guitar",
     "file": "media/guitar_Cs4.wav"
   },
   {
@@ -212,7 +212,7 @@
     "file": "media/guitar_B3.wav"
   },
   {
-    "id": "A#3_guitar",
+    "id": "As3_guitar",
     "file": "media/guitar_As3.wav"
   },
   {
@@ -220,7 +220,7 @@
     "file": "media/guitar_A3.wav"
   },
   {
-    "id": "G#3_guitar",
+    "id": "Gs3_guitar",
     "file": "media/guitar_Gs3.wav"
   },
   {
@@ -228,7 +228,7 @@
     "file": "media/guitar_G3.wav"
   },
   {
-    "id": "F#3_guitar",
+    "id": "Fs3_guitar",
     "file": "media/guitar_Fs3.wav"
   },
   {
@@ -240,7 +240,7 @@
     "file": "media/guitar_E3.wav"
   },
   {
-    "id": "D#3_guitar",
+    "id": "Ds3_guitar",
     "file": "media/guitar_Ds3.wav"
   },
   {
@@ -248,7 +248,7 @@
     "file": "media/guitar_D3.wav"
   },
   {
-    "id": "C#3_guitar",
+    "id": "Cs3_guitar",
     "file": "media/guitar_Cs3.wav"
   },
   {
@@ -260,7 +260,7 @@
     "file": "media/guitar_B2.wav"
   },
   {
-    "id": "A#2_guitar",
+    "id": "As2_guitar",
     "file": "media/guitar_As2.wav"
   },
   {
@@ -268,7 +268,7 @@
     "file": "media/guitar_A2.wav"
   },
   {
-    "id": "G#2_guitar",
+    "id": "Gs2_guitar",
     "file": "media/guitar_Gs2.wav"
   },
   {
@@ -276,7 +276,7 @@
     "file": "media/guitar_G2.wav"
   },
   {
-    "id": "F#2_guitar",
+    "id": "Fs2_guitar",
     "file": "media/guitar_Fs2.wav"
   },
   {
@@ -320,27 +320,27 @@
     "file": "media/xylo_C4.wav"
   },
   {
-    "id": "F#5_piano",
+    "id": "Fs5_piano",
     "file": "media/piano_Fs5.wav"
   },
   {
-    "id": "F#4_piano",
+    "id": "Fs4_piano",
     "file": "media/piano_Fs4.wav"
   },
   {
-    "id": "F#3_piano",
+    "id": "Fs3_piano",
     "file": "media/piano_Fs3.wav"
   },
   {
-    "id": "D#5_piano",
+    "id": "Ds5_piano",
     "file": "media/piano_Ds5.wav"
   },
   {
-    "id": "D#4_piano",
+    "id": "Ds4_piano",
     "file": "media/piano_Ds4.wav"
   },
   {
-    "id": "D#3_piano",
+    "id": "Ds3_piano",
     "file": "media/piano_Ds3.wav"
   },
   {
@@ -364,35 +364,35 @@
     "file": "media/piano_A4.wav"
   },
   {
-    "id": "F#6_piano",
+    "id": "Fs6_piano",
     "file": "media/piano_Fs6.wav"
   },
   {
-    "id": "F#2_piano",
+    "id": "Fs2_piano",
     "file": "media/piano_Fs2.wav"
   },
   {
-    "id": "F#1_piano",
+    "id": "Fs1_piano",
     "file": "media/piano_Fs1.wav"
   },
   {
-    "id": "F#0_piano",
+    "id": "Fs0_piano",
     "file": "media/piano_Fs0.wav"
   },
   {
-    "id": "D#6_piano",
+    "id": "Ds6_piano",
     "file": "media/piano_Ds6.wav"
   },
   {
-    "id": "D#2_piano",
+    "id": "Ds2_piano",
     "file": "media/piano_Ds2.wav"
   },
   {
-    "id": "D#1_piano",
+    "id": "Ds1_piano",
     "file": "media/piano_Ds1.wav"
   },
   {
-    "id": "D#0_piano",
+    "id": "Ds0_piano",
     "file": "media/piano_Ds0.wav"
   },
   {
@@ -468,15 +468,15 @@
     "file": "media/accordion_C4.wav"
   },
   {
-    "id": "A#3_accord",
+    "id": "As3_accord",
     "file": "media/accordion_As3.wav"
   },
   {
-    "id": "G#3_accord",
+    "id": "Gs3_accord",
     "file": "media/accordion_Gs3.wav"
   },
   {
-    "id": "F#3_accord",
+    "id": "Fs3_accord",
     "file": "media/accordion_Fs3.wav"
   },
   {
@@ -484,7 +484,7 @@
     "file": "media/accordion_E3.wav"
   },
   {
-    "id": "C#3_accord",
+    "id": "Cs3_accord",
     "file": "media/accordion_Cs3.wav"
   },
   {
@@ -628,7 +628,7 @@
     "file": "media/harp_D2.wav"
   },
   {
-    "id": "G#4_cello",
+    "id": "Gs4_cello",
     "file": "media/cello_Gs4.wav"
   },
   {
@@ -636,7 +636,7 @@
     "file": "media/cello_G4.wav"
   },
   {
-    "id": "F#4_cello",
+    "id": "Fs4_cello",
     "file": "media/cello_Fs4.wav"
   },
   {
@@ -648,7 +648,7 @@
     "file": "media/cello_E4.wav"
   },
   {
-    "id": "D#4_cello",
+    "id": "Ds4_cello",
     "file": "media/cello_Ds4.wav"
   },
   {
@@ -656,7 +656,7 @@
     "file": "media/cello_D4.wav"
   },
   {
-    "id": "C#4_cello",
+    "id": "Cs4_cello",
     "file": "media/cello_Cs4.wav"
   },
   {
@@ -664,7 +664,7 @@
     "file": "media/cello_C4.wav"
   },
   {
-    "id": "G#3_cello",
+    "id": "Gs3_cello",
     "file": "media/cello_Gs3.wav"
   },
   {
@@ -672,7 +672,7 @@
     "file": "media/cello_G3.wav"
   },
   {
-    "id": "F#3_cello",
+    "id": "Fs3_cello",
     "file": "media/cello_Fs3.wav"
   },
   {
@@ -684,7 +684,7 @@
     "file": "media/cello_E3.wav"
   },
   {
-    "id": "D#3_cello",
+    "id": "Ds3_cello",
     "file": "media/cello_Ds3.wav"
   },
   {
@@ -692,7 +692,7 @@
     "file": "media/cello_D3.wav"
   },
   {
-    "id": "C#3_cello",
+    "id": "Cs3_cello",
     "file": "media/cello_Cs3.wav"
   },
   {
@@ -704,7 +704,7 @@
     "file": "media/cello_B3.wav"
   },
   {
-    "id": "A#3_cello",
+    "id": "As3_cello",
     "file": "media/cello_As3.wav"
   },
   {
@@ -712,7 +712,7 @@
     "file": "media/cello_A3.wav"
   },
   {
-    "id": "G#2_cello",
+    "id": "Gs2_cello",
     "file": "media/cello_Gs2.wav"
   },
   {
@@ -720,7 +720,7 @@
     "file": "media/cello_G2.wav"
   },
   {
-    "id": "F#2_cello",
+    "id": "Fs2_cello",
     "file": "media/cello_Fs2.wav"
   },
   {
@@ -732,7 +732,7 @@
     "file": "media/cello_E2.wav"
   },
   {
-    "id": "D#2_cello",
+    "id": "Ds2_cello",
     "file": "media/cello_Ds2.wav"
   },
   {
@@ -740,7 +740,7 @@
     "file": "media/cello_D2.wav"
   },
   {
-    "id": "C#2_cello",
+    "id": "Cs2_cello",
     "file": "media/cello_Cs2.wav"
   },
   {
@@ -752,7 +752,7 @@
     "file": "media/cello_B2.wav"
   },
   {
-    "id": "A#2_cello",
+    "id": "As2_cello",
     "file": "media/cello_As2.wav"
   },
   {
@@ -764,7 +764,7 @@
     "file": "media/cello_C6.wav"
   },
   {
-    "id": "G#5_cello",
+    "id": "Gs5_cello",
     "file": "media/cello_Gs5.wav"
   },
   {
@@ -772,7 +772,7 @@
     "file": "media/cello_G5.wav"
   },
   {
-    "id": "F#5_cello",
+    "id": "Fs5_cello",
     "file": "media/cello_Fs5.wav"
   },
   {
@@ -784,7 +784,7 @@
     "file": "media/cello_E5.wav"
   },
   {
-    "id": "D#5_cello",
+    "id": "Ds5_cello",
     "file": "media/cello_Ds5.wav"
   },
   {
@@ -792,7 +792,7 @@
     "file": "media/cello_D5.wav"
   },
   {
-    "id": "C#5_cello",
+    "id": "Cs5_cello",
     "file": "media/cello_Cs5.wav"
   },
   {
@@ -804,7 +804,7 @@
     "file": "media/cello_B5.wav"
   },
   {
-    "id": "A#5_cello",
+    "id": "As5_cello",
     "file": "media/cello_As5.wav"
   },
   {
@@ -816,7 +816,7 @@
     "file": "media/cello_B4.wav"
   },
   {
-    "id": "A#4_cello",
+    "id": "As4_cello",
     "file": "media/cello_As4.wav"
   },
   {
