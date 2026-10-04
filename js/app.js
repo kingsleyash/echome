@@ -62,7 +62,8 @@ function connectSensor(i) {
 						myBLE[i].startNotifications(yawCharacteristic[sensor_nums[i]-1], handleYaws[i]);
 					}else if(characteristics[j].uuid == characteristicsUUID.data){
 						dataCharacteristic[sensor_nums[i]-1] = characteristics[j];
-						myBLE[i].startNotifications(dataCharacteristic[sensor_nums[i]-1], handleData[i]);
+						//myBLE[i].startNotifications(dataCharacteristic[sensor_nums[i]-1], handleData[i]);
+						myBLE[i].startNotifications(dataCharacteristic[sensor_nums[i]-1], handleData[i], "custom");
 
 					}
 				}
@@ -87,55 +88,60 @@ function connectSensor(i) {
       		sendToMax(i,"yaw", Number(data));
 			//sendToMax(((sensor_nums[i]*5)+2)+" "+Number(data));
 		});
-	handleData[i] = (function(data) {
+		handleData[i] = function(data) {
 
-    console.log("========== IMU PACKET ==========");
-    console.log("data:", data);
-    console.log("typeof:", typeof data);
-    console.log("constructor:", data?.constructor?.name);
-    console.log("length:", data?.length);
-    console.log("byteLength:", data?.byteLength);
+		    console.log("IMU DATA:", data);
+		    console.log("TYPE:", typeof data);
+		    console.log("CONSTRUCTOR:", data?.constructor?.name);
+		    console.log("BYTE LENGTH:", data?.byteLength);
+		
+		    const imu = decodeIMU(data);
+		
+		    if (!imu) return;
+		
+		    sendToMax(i, "accelX", imu.accelX);
+		    sendToMax(i, "accelY", imu.accelY);
+		    sendToMax(i, "accelZ", imu.accelZ);
+		
+		    sendToMax(i, "gyroX", imu.gyroX);
+		    sendToMax(i, "gyroY", imu.gyroY);
+		    sendToMax(i, "gyroZ", imu.gyroZ);
+		
+		    sendToMax(i, "timestamp", imu.timestamp);
+		};
 
-    if (data instanceof Uint8Array) {
-        console.log("Uint8Array:", Array.from(data));
-    }
-
-    if (data instanceof ArrayBuffer) {
-        console.log("ArrayBuffer:", Array.from(new Uint8Array(data)));
-    }
-
-    if (data instanceof DataView) {
-        console.log(
-            "DataView:",
-            Array.from(
-                new Uint8Array(
-                    data.buffer,
-                    data.byteOffset,
-                    data.byteLength
-                )
-            )
-        );
-    }
-
-});
-/*		handleData[i]=(function(data){
-			const imu = decodeIMU(data);
-
-    		sendToMax(i, "accelX", imu.accelX);
-    		sendToMax(i, "accelY", imu.accelY);
-    		sendToMax(i, "accelZ", imu.accelZ);
-
-    		sendToMax(i, "gyroX", imu.gyroX);
-    		sendToMax(i, "gyroY", imu.gyroY);
-    		sendToMax(i, "gyroZ", imu.gyroZ);
-
-    		sendToMax(i, "timestamp", imu.timestamp);
-		});
-		*/
 }
 
 function decodeIMU(data) {
-    const view = data;
+
+    let view;
+
+    if (data instanceof DataView) {
+        view = data;
+    }
+    else if (data instanceof ArrayBuffer) {
+        view = new DataView(data);
+    }
+    else if (data instanceof Uint8Array) {
+        view = new DataView(
+            data.buffer,
+            data.byteOffset,
+            data.byteLength
+        );
+    }
+    else {
+        console.error("Unexpected IMU data:", data);
+        return null;
+    }
+
+    if (view.byteLength < 16) {
+        console.error(
+            "IMU packet is only",
+            view.byteLength,
+            "bytes"
+        );
+        return null;
+    }
 
     const timestamp = view.getUint32(0, true);
 
@@ -143,9 +149,9 @@ function decodeIMU(data) {
     const accelY = view.getInt16(6, true) / 1000.0;
     const accelZ = view.getInt16(8, true) / 1000.0;
 
-    const gyroX = view.getInt16(10, true) / 100.0;
-    const gyroY = view.getInt16(12, true) / 100.0;
-    const gyroZ = view.getInt16(14, true) / 100.0;
+    const gyroX = view.getInt16(10, true) / 10.0;
+    const gyroY = view.getInt16(12, true) / 10.0;
+    const gyroZ = view.getInt16(14, true) / 10.0;
 
     return {
         timestamp,
@@ -182,9 +188,6 @@ function checkBrowser(){
 
 function connectAndStartNotify(index) {
 
-	// Connect to a device by passing the service UUID
-	//myBLE1.connect("19b10010-e8f2-537e-4f6c-d104768a1214");
-	//myBLE[sensor_val].connect(serviceUUid[sensor_val], gotCharacteristics[sensor_val]);
   if((myBLE[index].isConnected()==false)) {
       myBLE[index].connect(get_serviceUUid(sensor_nums[current_sensor]), gotChars[index]);
   }
