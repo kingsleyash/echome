@@ -269,7 +269,7 @@ let s = function(p) {
     	drawSensors();
     //drawInstSelect();
 
-    getInputs();
+    	getInputs();
 
 		if(loading!=num_sensors) drawLoadingscreen();
 
@@ -350,14 +350,14 @@ function drawSensors(){
         // Sensor circle
         // -------------------------
 
-        p.noFill();
+		p.fill(0,0,0);
 
         if(myBLE[i].isConnected()){
             p.stroke(0, 255, 0);
         }else{
             p.stroke(255, 0, 0);
         }
-
+		
         p.strokeWeight(2);
         p.circle(0, 0, 100);
 
@@ -429,7 +429,6 @@ function drawSensors(){
 
         p.pop();
     }
-	p.pop();
 }
 
   function drawConnections() {
@@ -689,8 +688,8 @@ function drawCircularBar(value, maxValue, radius, thickness, bottom = false){
 	          buffSelect[current_sensor].hide();
 	          midiVol[current_sensor].hide();
 	          buffVol[current_sensor].hide();
-						scaleSelect[current_sensor].hide();
-						loadFile[current_sensor].hide();
+			  scaleSelect[current_sensor].hide();
+			  loadFile[current_sensor].hide();
 	        }
 	        current_sensor=i;
 	        console.log("Sensor selected: "+sensor_nums[i]);
