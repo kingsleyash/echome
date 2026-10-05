@@ -39,6 +39,11 @@ let rollCharacteristic=[];
 let yawCharacteristic=[];
 let dataCharacteristic=[];
 
+// Sensor values for each sensor
+let sensorData = [];
+
+
+
 
 function connectSensor(i) {
 
@@ -98,6 +103,14 @@ function connectSensor(i) {
 		    const imu = decodeIMU(data);
 		
 		    if (!imu) return;
+
+			sensorData[i].accelX = imu.accelX;
+    		sensorData[i].accelY = imu.accelY;
+    		sensorData[i].accelZ = imu.accelZ;
+
+    		sensorData[i].gyroX = imu.gyroX;
+    		sensorData[i].gyroY = imu.gyroY;
+    		sensorData[i].gyroZ = imu.gyroZ;
 		
 		    sendToMax(i, "accelX", imu.accelX);
 		    sendToMax(i, "accelY", imu.accelY);
@@ -221,13 +234,21 @@ let s = function(p) {
     main();
 		//connectXebra();
 
-		for (let i=0; i<num_sensors; i++) {
-      connectSensor(i);
-      midiOn[i]=0;
-      buffOn[i]=0;
+	for (let i=0; i<num_sensors; i++) {
+	    connectSensor(i);
+	    midiOn[i]=0;
+	    buffOn[i]=0;
+		sensorData[i] = {
+	        accelX: 0,
+	        accelY: 0,
+	        accelZ: 0,
+	        gyroX: 0,
+	        gyroY: 0,
+	        gyroZ: 0
+	    };
     }
 
-		prev_time=p.millis();
+	prev_time=p.millis();
 
     drawInputs();
 
@@ -240,12 +261,12 @@ let s = function(p) {
 		p.background(0);
 
 		drawTitle();
-    drawInstructions();
-    drawSensorSettings();
+    	drawInstructions();
+    	drawSensorSettings();
 
 		drawConnections();
 		drawCircle();
-    drawSensors();
+    	drawSensors();
     //drawInstSelect();
 
     getInputs();
@@ -315,32 +336,100 @@ let s = function(p) {
       }
   }
 
-  function drawSensors(){
+function drawSensors(){
 
-    for(i=0; i<num_sensors; i++){
-      let x = 250*p.sin(i*(p.TWO_PI/num_sensors)); //calculate xPos
-      let y = 250*p.cos(i*(p.TWO_PI/num_sensors)); //calculate yPos
+    for(let i = 0; i < num_sensors; i++){
 
-      p.fill(0,0,0);
-      p.strokeWeight(5);
-      if(myBLE[i].isConnected()){
-        p.stroke(p.color(0, 255, 0));
-      }else{
-        p.stroke(p.color(255, 0, 0));
-      }
+        let x = 250 * p.sin(i * (p.TWO_PI / num_sensors));
+        let y = 250 * p.cos(i * (p.TWO_PI / num_sensors));
 
-      p.push();
-      p.translate(x, -y);
-      p.circle(0, 0, 100);
-      p.textSize(30);
-      p.fill(0, 102, 153);
-      p.strokeWeight(0);
-      p.textAlign(p.CENTER, p.CENTER);
-      p.text(sensor_nums[i], 0, 0);
-      p.pop();
+        p.push();
+        p.translate(x, -y);
+
+        // -------------------------
+        // Sensor circle
+        // -------------------------
+
+        p.noFill();
+
+        if(myBLE[i].isConnected()){
+            p.stroke(0, 255, 0);
+        }else{
+            p.stroke(255, 0, 0);
+        }
+
+        p.strokeWeight(2);
+        p.circle(0, 0, 100);
+
+
+        // -------------------------
+        // Sensor number
+        // -------------------------
+
+        p.noStroke();
+        p.fill(0, 102, 153);
+        p.textSize(30);
+        p.textAlign(p.CENTER, p.CENTER);
+        p.text(sensor_nums[i], 0, 0);
+
+
+        // -------------------------
+        // Accelerometers
+        // -------------------------
+
+        drawCircularBar(
+            sensorData[i].accelX,
+            2,
+            37,
+            12
+        );
+
+        drawCircularBar(
+            sensorData[i].accelY,
+            2,
+            31,
+            10
+        );
+
+        drawCircularBar(
+            sensorData[i].accelZ,
+            2,
+            25,
+            8
+        );
+
+
+        // -------------------------
+        // Gyroscopes
+        // -------------------------
+
+        drawCircularBar(
+            sensorData[i].gyroX,
+            2000,
+            37,
+            12,
+            true
+        );
+
+        drawCircularBar(
+            sensorData[i].gyroY,
+            2000,
+            31,
+            10,
+            true
+        );
+
+        drawCircularBar(
+            sensorData[i].gyroZ,
+            2000,
+            25,
+            8,
+            true
+        );
+
+        p.pop();
     }
-    p.pop();
-  }
+}
 
   function drawConnections() {
     for(i=0; i<num_sensors; i++) {
@@ -525,6 +614,64 @@ let s = function(p) {
       }
 
   }
+
+function drawCircularBar(value, maxValue, radius, thickness, bottom = false){
+
+    // Limit the value to the expected sensor range
+    value = p.constrain(value, -maxValue, maxValue);
+
+    // Convert value to an angle.
+    // 0 = 12 o'clock for accelerometers
+    // 0 = 6 o'clock for gyroscopes
+
+    let amount = value / maxValue;
+
+    let startAngle;
+    let endAngle;
+
+    if(!bottom){
+
+        // Zero at 12 o'clock
+        startAngle = -p.HALF_PI;
+
+        if(amount >= 0){
+            endAngle = startAngle + amount * p.PI;
+        }else{
+            endAngle = startAngle + amount * p.PI;
+        }
+
+    }else{
+
+        // Zero at 6 o'clock
+        startAngle = p.HALF_PI;
+
+        if(amount >= 0){
+            endAngle = startAngle + amount * p.PI;
+        }else{
+            endAngle = startAngle + amount * p.PI;
+        }
+    }
+
+    p.noFill();
+
+    // Differentiate the three rings slightly
+    if(bottom){
+        p.stroke(180, 80, 80);
+    }else{
+        p.stroke(80, 120, 200);
+    }
+
+    p.strokeWeight(2);
+
+    p.arc(
+        0,
+        0,
+        radius * 2,
+        radius * 2,
+        startAngle,
+        endAngle
+    );
+}
 
   p.mousePressed = function() {
 
