@@ -429,6 +429,7 @@ function drawSensors(){
 
         p.pop();
     }
+	p.pop();
 }
 
   function drawConnections() {
