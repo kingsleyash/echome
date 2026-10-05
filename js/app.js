@@ -42,6 +42,9 @@ let dataCharacteristic=[];
 // Sensor values for each sensor
 let sensorData = [];
 
+const ACCEL_MAX = 2.0;       // ±2 g
+const GYRO_MAX = 2000.0;    // ±2000 degrees/sec
+
 
 
 
@@ -374,58 +377,54 @@ function drawSensors(){
 
 
         // -------------------------
-        // Accelerometers
+        // Draw sensor display lines
         // -------------------------
 
-        drawCircularBar(
-            sensorData[i].accelX,
-            2,
-            37,
-            12
-        );
+	drawCircularBar(
+    	sensorData[i].accelX,
+    	ACCEL_MAX,
+    	37,
+    	2
+	);
 
-        drawCircularBar(
-            sensorData[i].accelY,
-            2,
-            31,
-            10
-        );
+	drawCircularBar(
+	    sensorData[i].accelY,
+	    ACCEL_MAX,
+	    31,
+	    2
+	);
+	
+	drawCircularBar(
+	    sensorData[i].accelZ,
+	    ACCEL_MAX,
+	    25,
+	    2
+	);
 
-        drawCircularBar(
-            sensorData[i].accelZ,
-            2,
-            25,
-            8
-        );
+	drawCircularBar(
+	    sensorData[i].gyroX,
+	    GYRO_MAX,
+	    37,
+	    2,
+	    true
+	);
+	
+	drawCircularBar(
+	    sensorData[i].gyroY,
+	    GYRO_MAX,
+	    31,
+	    2,
+	    true
+	);
+	
+	drawCircularBar(
+	    sensorData[i].gyroZ,
+	    GYRO_MAX,
+	    25,
+	    2,
+	    true
+	);
 
-
-        // -------------------------
-        // Gyroscopes
-        // -------------------------
-
-        drawCircularBar(
-            sensorData[i].gyroX,
-            2000,
-            37,
-            12,
-            true
-        );
-
-        drawCircularBar(
-            sensorData[i].gyroY,
-            2000,
-            31,
-            10,
-            true
-        );
-
-        drawCircularBar(
-            sensorData[i].gyroZ,
-            2000,
-            25,
-            8,
-            true
-        );
 
         p.pop();
     }
@@ -617,59 +616,41 @@ function drawSensors(){
 
 function drawCircularBar(value, maxValue, radius, thickness, bottom = false){
 
-    // Limit the value to the expected sensor range
     value = p.constrain(value, -maxValue, maxValue);
 
-    // Convert value to an angle.
-    // 0 = 12 o'clock for accelerometers
-    // 0 = 6 o'clock for gyroscopes
-
+    // Normalise to -1 ... +1
     let amount = value / maxValue;
 
-    let startAngle;
-    let endAngle;
+    // Maximum sweep is 180 degrees
+    let sweep = amount * p.PI;
 
-    if(!bottom){
+    let zeroAngle;
 
-        // Zero at 12 o'clock
-        startAngle = -p.HALF_PI;
-
-        if(amount >= 0){
-            endAngle = startAngle + amount * p.PI;
-        }else{
-            endAngle = startAngle + amount * p.PI;
-        }
-
-    }else{
-
+    if(bottom){
         // Zero at 6 o'clock
-        startAngle = p.HALF_PI;
-
-        if(amount >= 0){
-            endAngle = startAngle + amount * p.PI;
-        }else{
-            endAngle = startAngle + amount * p.PI;
-        }
+        zeroAngle = p.HALF_PI;
+    }else{
+        // Zero at 12 o'clock
+        zeroAngle = -p.HALF_PI;
     }
 
     p.noFill();
 
-    // Differentiate the three rings slightly
     if(bottom){
         p.stroke(180, 80, 80);
     }else{
         p.stroke(80, 120, 200);
     }
 
-    p.strokeWeight(2);
+    p.strokeWeight(thickness);
 
     p.arc(
         0,
         0,
         radius * 2,
         radius * 2,
-        startAngle,
-        endAngle
+        zeroAngle,
+        zeroAngle + sweep
     );
 }
 
