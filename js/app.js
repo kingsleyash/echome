@@ -42,8 +42,8 @@ let dataCharacteristic=[];
 // Sensor values for each sensor
 let sensorData = [];
 
-const ACCEL_MAX = 2.0;       // ±2 g
-const GYRO_MAX = 5000.0;    // ±2000 degrees/sec
+const ACCEL_MAX = 3.0;       // ±2 g
+const GYRO_MAX = 2000.0;    // ±2000 degrees/sec
 
 
 
