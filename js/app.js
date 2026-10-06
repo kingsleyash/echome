@@ -43,7 +43,7 @@ let dataCharacteristic=[];
 let sensorData = [];
 
 const ACCEL_MAX = 2.0;       // ±2 g
-const GYRO_MAX = 2000.0;    // ±2000 degrees/sec
+const GYRO_MAX = 5000.0;    // ±2000 degrees/sec
 
 
 
@@ -644,6 +644,7 @@ function drawCircularBar(value, maxValue, radius, thickness, bottom = false){
 
     p.strokeWeight(thickness);
 
+	if(sweep>0){
     p.arc(
         0,
         0,
@@ -652,6 +653,16 @@ function drawCircularBar(value, maxValue, radius, thickness, bottom = false){
         zeroAngle,
         zeroAngle + sweep
     );
+	} else{
+	p.arc(
+        0,
+        0,
+        radius * 2,
+        radius * 2,
+        zeroAngle + sweep,
+        zeroAngle
+    );
+	}
 }
 
   p.mousePressed = function() {
