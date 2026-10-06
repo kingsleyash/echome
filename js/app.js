@@ -383,28 +383,28 @@ function drawSensors(){
 	drawCircularBar(
     	sensorData[i].accelX,
     	ACCEL_MAX,
-    	37,
+    	41,
     	2
 	);
 
 	drawCircularBar(
 	    sensorData[i].accelY,
 	    ACCEL_MAX,
-	    31,
+	    37,
 	    2
 	);
 	
 	drawCircularBar(
 	    sensorData[i].accelZ,
 	    ACCEL_MAX,
-	    25,
+	    33,
 	    2
 	);
 
 	drawCircularBar(
 	    sensorData[i].gyroX,
 	    GYRO_MAX,
-	    37,
+	    41,
 	    2,
 	    true
 	);
@@ -412,7 +412,7 @@ function drawSensors(){
 	drawCircularBar(
 	    sensorData[i].gyroY,
 	    GYRO_MAX,
-	    31,
+	    37,
 	    2,
 	    true
 	);
@@ -420,7 +420,7 @@ function drawSensors(){
 	drawCircularBar(
 	    sensorData[i].gyroZ,
 	    GYRO_MAX,
-	    25,
+	    33,
 	    2,
 	    true
 	);
