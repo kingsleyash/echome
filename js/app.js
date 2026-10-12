@@ -771,11 +771,11 @@ async function main() { // Note that main is an async function to support async 
 			const results = await device[i].loadDataBufferDependencies(dependencies);
 
 			results.forEach(result => {
-    	if (result.type === "success") {
-        console.log(`Successfully loaded buffer with id ${result.id}`);
-    	} else {
-        console.log(`Failed to load buffer with id ${result.id}, ${result.error}`);
-    	}
+		    	if (result.type === "success") {
+		        console.log(`Successfully loaded buffer with id ${result.id}`);
+		    	} else {
+		        console.log(`Failed to load buffer with id ${result.id}, ${result.error}`);
+		    	}
 			});
 
 
@@ -783,7 +783,7 @@ async function main() { // Note that main is an async function to support async 
 //	        await device[0].loadDataBufferDependencies(dependencies);
 			device[i].node.connect(outputNode);
 
-	  	device[i].parameters.forEach(parameter => {
+	  		device[i].parameters.forEach(parameter => {
 			      console.log(parameter.name);
 			});
 
