@@ -102,27 +102,27 @@ function connectSensor(i) {
 		    //console.log("TYPE:", typeof data);
 		    //console.log("CONSTRUCTOR:", data?.constructor?.name);
 		    //console.log("BYTE LENGTH:", data?.byteLength);
-		
+
 		    const imu = decodeIMU(data);
-		
+
 		    if (!imu) return;
 
-			sensorData[i].accelX = imu.accelX;
+				sensorData[i].accelX = imu.accelX;
     		sensorData[i].accelY = imu.accelY;
     		sensorData[i].accelZ = imu.accelZ;
 
     		sensorData[i].gyroX = imu.gyroX;
     		sensorData[i].gyroY = imu.gyroY;
     		sensorData[i].gyroZ = imu.gyroZ;
-		
+
 		    sendToMax(i, "accelX", imu.accelX);
 		    sendToMax(i, "accelY", imu.accelY);
 		    sendToMax(i, "accelZ", imu.accelZ);
-		
+
 		    sendToMax(i, "gyroX", imu.gyroX);
 		    sendToMax(i, "gyroY", imu.gyroY);
 		    sendToMax(i, "gyroZ", imu.gyroZ);
-		
+
 		    //sendToMax(i, "timestamp", imu.timestamp);
 		};
 
@@ -360,7 +360,7 @@ function drawSensors(){
         }else{
             p.stroke(255, 0, 0);
         }
-		
+
         p.strokeWeight(2);
         p.circle(0, 0, 100);
 
@@ -393,7 +393,7 @@ function drawSensors(){
 	    40,
 	    2
 	);
-	
+
 	drawCircularBar(
 	    sensorData[i].accelZ,
 	    ACCEL_MAX,
@@ -408,7 +408,7 @@ function drawSensors(){
 	    2,
 	    true
 	);
-	
+
 	drawCircularBar(
 	    sensorData[i].gyroY,
 	    GYRO_MAX,
@@ -416,7 +416,7 @@ function drawSensors(){
 	    2,
 	    true
 	);
-	
+
 	drawCircularBar(
 	    sensorData[i].gyroZ,
 	    GYRO_MAX,
@@ -701,7 +701,7 @@ function drawCircularBar(value, maxValue, radius, thickness, bottom = false){
 	    }
 
 	    if(p.mouseX>((100+innerWidth/2)-innerHeight/12) && p.mouseX<((100+innerWidth/2)+innerHeight/12) && p.mouseY>((innerHeight/2)-innerHeight/12) && p.mouseY<((innerHeight/2)+innerHeight/12)) {
-	      //console.log("mouse clicked in centre circle");
+	      console.log("Starting Audio");
 	      startAudio();
 				slider.show();
 	    };
