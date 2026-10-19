@@ -255,7 +255,7 @@ let s = function(p) {
 	        accelZ: 0,
 	        gyroX: 0,
 	        gyroY: 0,
-	        gyroZ: 0
+	        gyroZ: 0,
 			buttonA: 0
 	    };
     }
