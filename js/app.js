@@ -127,11 +127,6 @@ function connectSensor(i) {
 
 			sendToMax(i, "buttonA", imu.buttonA);
 		    //sendToMax(i, "timestamp", imu.timestamp);
-
-			console.log(
-    			"Sensor", sensor_nums[i],
-   				"Front button:", imu.buttonA
-			);
 		};
 
 }
