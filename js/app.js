@@ -111,6 +111,10 @@ function connectSensor(i) {
 			sensorData[i].gyroY = imu.gyroY;
 			sensorData[i].gyroZ = imu.gyroZ;
 
+			sensorData[i].accelX = imu.accelX;
+			sensorData[i].accelY = imu.accelY;
+			sensorData[i].accelZ = imu.accelZ;
+
 			sensorData[i].buttonA = imu.buttonA;
 
 			sendToMax(i, "accelX", imu.accelX);
