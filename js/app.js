@@ -107,23 +107,27 @@ function connectSensor(i) {
 
 		    if (!imu) return;
 
-				sensorData[i].accelX = imu.accelX;
-    		sensorData[i].accelY = imu.accelY;
-    		sensorData[i].accelZ = imu.accelZ;
+			sensorData[i].gyroX = imu.gyroX;
+			sensorData[i].gyroY = imu.gyroY;
+			sensorData[i].gyroZ = imu.gyroZ;
 
-    		sensorData[i].gyroX = imu.gyroX;
-    		sensorData[i].gyroY = imu.gyroY;
-    		sensorData[i].gyroZ = imu.gyroZ;
+			sensorData[i].buttonA = imu.buttonA;
 
-		    sendToMax(i, "accelX", imu.accelX);
-		    sendToMax(i, "accelY", imu.accelY);
-		    sendToMax(i, "accelZ", imu.accelZ);
+			sendToMax(i, "accelX", imu.accelX);
+			sendToMax(i, "accelY", imu.accelY);
+			sendToMax(i, "accelZ", imu.accelZ);
 
-		    sendToMax(i, "gyroX", imu.gyroX);
-		    sendToMax(i, "gyroY", imu.gyroY);
-		    sendToMax(i, "gyroZ", imu.gyroZ);
+			sendToMax(i, "gyroX", imu.gyroX);
+			sendToMax(i, "gyroY", imu.gyroY);
+			sendToMax(i, "gyroZ", imu.gyroZ);
 
+			sendToMax(i, "buttonA", imu.buttonA);
 		    //sendToMax(i, "timestamp", imu.timestamp);
+
+			console.log(
+    			"Sensor", sensor_nums[i],
+   				"Front button:", imu.buttonA
+			);
 		};
 
 }
@@ -150,11 +154,11 @@ function decodeIMU(data) {
         return null;
     }
 
-    if (view.byteLength < 16) {
+    if (view.byteLength < 17) {
         console.error(
             "IMU packet is only",
             view.byteLength,
-            "bytes"
+            "bytes; expected 17"
         );
         return null;
     }
@@ -169,6 +173,9 @@ function decodeIMU(data) {
     const gyroY = view.getInt16(12, true) / 10.0;
     const gyroZ = view.getInt16(14, true) / 10.0;
 
+    // Front blue button: 1 = pressed, 0 = released
+    const buttonA = view.getUint8(16);
+
     return {
         timestamp,
         accelX,
@@ -176,7 +183,8 @@ function decodeIMU(data) {
         accelZ,
         gyroX,
         gyroY,
-        gyroZ
+        gyroZ,
+        buttonA
     };
 }
 
@@ -248,6 +256,7 @@ let s = function(p) {
 	        gyroX: 0,
 	        gyroY: 0,
 	        gyroZ: 0
+			buttonA: 0
 	    };
     }
 
