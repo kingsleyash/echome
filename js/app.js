@@ -352,8 +352,8 @@ function drawSensors(){
 
     for(let i = 0; i < num_sensors; i++){
 
-        let x = 250 * p.sin(i * (p.TWO_PI / num_sensors));
-        let y = 250 * p.cos(i * (p.TWO_PI / num_sensors));
+        let x = 200 * p.sin(i * (p.TWO_PI / num_sensors));
+        let y = 200 * p.cos(i * (p.TWO_PI / num_sensors));
 
         p.push();
         p.translate(x, -y);
@@ -442,8 +442,8 @@ function drawSensors(){
 
   function drawConnections() {
     for(i=0; i<num_sensors; i++) {
-      let x = 100+250*p.sin(i*(p.TWO_PI/num_sensors)); //calculate xPos
-      let y = 250*p.cos(i*(p.TWO_PI/num_sensors)); //calculate yPos
+      let x = 100+200*p.sin(i*(p.TWO_PI/num_sensors)); //calculate xPos
+      let y = 200*p.cos(i*(p.TWO_PI/num_sensors)); //calculate yPos
       p.strokeWeight(2);
       if((i<num_sensors)&&myBLE[i].isConnected()&&(context.state == "running")){
         p.stroke(p.color(0, 255, 0));
