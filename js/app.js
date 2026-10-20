@@ -298,20 +298,20 @@ let s = function(p) {
 	function drawLoadingscreen(){
 			p.strokeWeight(0);
 			p.fill(255, 255, 255, 200);
-			p.rect(-innerWidth/4, -innerHeight/4, innerWidth/4, innerHeight/4);
+			p.rect(innerWidth/4, innerHeight/4, 3*innerWidth/4, 3*innerHeight/4);
 
 			p.textSize(24);
 			p.fill(0, 102, 153);
 			p.textAlign(p.CENTER, p.CENTER);
-			p.text('Loading sounds and instruments for sensor '+ (loading+1)+' out of '+num_sensors, 0, 70);
+			p.text('Loading sounds and instruments for sensor '+ (loading+1)+' out of '+num_sensors, innerWidth/2, 70);
 
 			p.textSize(64);
 			p.fill(0, 102, 153);
 			p.textAlign(p.CENTER, p.CENTER);
-			if((p.millis()-prev_time)>0) p.text('LOADING   ', 0, 0);
-			if((p.millis()-prev_time)>1000) p.text('LOADING.  ', 0, 0);
-			if((p.millis()-prev_time)>2000) p.text('LOADING.. ', 0, 0);
-			if((p.millis()-prev_time)>3000) p.text('LOADING...', 0, 0);
+			if((p.millis()-prev_time)>0) p.text('LOADING   ', innerWidth/2, innerHeight/2);
+			if((p.millis()-prev_time)>1000) p.text('LOADING.  ', innerWidth/2, innerHeight/2);
+			if((p.millis()-prev_time)>2000) p.text('LOADING.. ', innerWidth/2, innerHeight/2);
+			if((p.millis()-prev_time)>3000) p.text('LOADING...', innerWidth/2, innerHeight/2);
 			if((p.millis()-prev_time)>4000) prev_time=p.millis();
 	}
 
@@ -510,11 +510,14 @@ function drawSensors(){
 				loadFile[i].hide();
   }
 
-    // Create a slider and place it at the top of the canvas.
+    // Create a slider and place it in the centre circle.
+	p.push();
+    p.translate((innerWidth/2)+100, innerHeight/2);
     slider = p.createSlider(0, 1, 1, 0.01);
     slider.position(50, 370);
     slider.size(230);
 	slider.hide();
+	p.pop();
   }
 
 	function processFile(file) {
