@@ -512,7 +512,7 @@ function drawSensors(){
 
     // Create a slider and place it in the centre circle.
     slider = p.createSlider(0, 1, 1, 0.01);
-    slider.position(70, 350);
+    slider.position(60, 380);
     slider.size(230);
 	slider.hide();
 	
