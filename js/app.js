@@ -345,6 +345,7 @@ let s = function(p) {
       } else {
         p.text('on', 0, 20);
       }
+	  p.pop();
   }
 
 function drawSensors(){
