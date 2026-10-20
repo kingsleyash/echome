@@ -298,7 +298,7 @@ let s = function(p) {
 	function drawLoadingscreen(){
 			p.strokeWeight(0);
 			p.fill(255, 255, 255, 200);
-			p.rect(-innerWidth/2, -innerHeight/2, innerWidth/2, innerHeight/2);
+			p.rect(-innerWidth/4, -innerHeight/4, innerWidth/4, innerHeight/4);
 
 			p.textSize(24);
 			p.fill(0, 102, 153);
@@ -510,7 +510,7 @@ function drawSensors(){
 
     // Create a slider and place it at the top of the canvas.
     slider = p.createSlider(0, 1, 1, 0.01);
-    slider.position(50, 360);
+    slider.position(50, 370);
     slider.size(230);
 		slider.hide();
   }
