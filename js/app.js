@@ -345,7 +345,7 @@ let s = function(p) {
       } else {
         p.text('on', 0, 20);
       }
-	  p.pop();
+	  //p.pop();
   }
 
 function drawSensors(){
@@ -437,6 +437,7 @@ function drawSensors(){
 
         p.pop();
     }
+	p.pop();
 }
 
   function drawConnections() {
@@ -513,7 +514,7 @@ function drawSensors(){
     slider = p.createSlider(0, 1, 1, 0.01);
     slider.position(50, 370);
     slider.size(230);
-		slider.hide();
+	slider.hide();
   }
 
 	function processFile(file) {
