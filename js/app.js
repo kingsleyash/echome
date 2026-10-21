@@ -456,67 +456,131 @@ function drawSensors(){
     }
   }
 
-  function drawInputs(){
-    for(i=0; i<num_sensors; i++){
-        midiSelect[i] = p.createSelect();
-        midiSelect[i].position(70, innerHeight-125);
-        midiSelect[i].option('Harp', 0);
-        midiSelect[i].option('Piano', 1);
-        midiSelect[i].option('Celesta', 2);
-        midiSelect[i].option('Xylophone', 3);
-        midiSelect[i].option('Cello', 4);
-        midiSelect[i].option('Accordion', 5);
-        midiSelect[i].option('Guitar', 6);
-        midiSelect[i].option('Percussion', 7);
-        midiSelect[i].changed(midiChanged);
-        midiSelect[i].hide();
+function getSensorLayout() {
+  const margin = 10;
+  const gap = 8;
+  const bottomMargin = 10;
 
-        buffSelect[i] = p.createSelect();
-        buffSelect[i].position(170, innerHeight-125);
-        buffSelect[i].option('Garden', 0);
-        buffSelect[i].option('Birds', 1);
-        buffSelect[i].option('Meanwood', 2);
-        buffSelect[i].option('Ancra', 3);
-        buffSelect[i].option('Feedbackclick', 4);
-        buffSelect[i].option('Hardwet', 5);
-        buffSelect[i].option('Intiband', 6);
-        buffSelect[i].option('User', 7);
-        buffSelect[i].changed(buffChanged);
-        buffSelect[i].hide();
+  const availableWidth = innerWidth - 2 * margin;
+  const boxWidth =
+    (availableWidth - gap * (num_sensors - 1)) / num_sensors;
 
-        midiVol[i] = p.createSlider(0, 1, 1, 0.01);
-        midiVol[i].position(65, innerHeight-175);
-        midiVol[i].size(90);
-        midiVol[i].hide();
+  const boxHeight = Math.min(200, innerHeight * 0.3);
+  const scale = Math.min(1, boxWidth / 200, boxHeight / 200);
+  const boxY = innerHeight - boxHeight - bottomMargin;
 
-        buffVol[i] = p.createSlider(0, 1, 1, 0.01);
-        buffVol[i].position(175, innerHeight-175);
-        buffVol[i].size(90);
-        buffVol[i].hide();
+  return {
+    margin,
+    gap,
+    boxWidth,
+    boxHeight,
+    scale,
+    boxY
+  };
+}
 
-		scaleSelect[i] = p.createSelect();
-        scaleSelect[i].position(70, innerHeight-150);
-		scaleSelect[i].option('Major', 0);
-		scaleSelect[i].option('Minor', 1);
-		scaleSelect[i].option('Iwato', 2);
-		scaleSelect[i].option('Pentatonic', 3);
-		scaleSelect[i].option('Niavent', 4);
-		scaleSelect[i].option('Blues', 5);
-		scaleSelect[i].changed(scaleChanged);
-		scaleSelect[i].hide();
-
-		loadFile[i] = p.createFileInput(processFile);
-		loadFile[i].position(180, innerHeight-150);
-		loadFile[i].hide();
-  }
-
-    // Create a slider and place it in the centre circle.
-    //slider = p.createSlider(0, 1, 1, 0.01);
-    //slider.position(55, 380);
-    //slider.size(230);
-	//slider.hide();
 	
+function drawInputs() {
+  const layout = getSensorLayout();
+  const { margin, gap, boxWidth, boxHeight, scale, boxY } = layout;
+
+  for (let i = 0; i < num_sensors; i++) {
+    const x = margin + i * (boxWidth + gap);
+
+    // Layout dimensions
+    const padding = 5 * scale;
+    const controlWidth = Math.max(30, boxWidth - 2 * padding);
+    const controlHeight = 20 * scale;
+
+    // Controls start underneath the indicator boxes
+    const startY = boxY + 105 * scale;
+    const rowGap = 5 * scale;
+
+    // MIDI instrument dropdown
+    midiSelect[i] = p.createSelect();
+    midiSelect[i].position(x + padding, startY);
+    midiSelect[i].size(controlWidth, controlHeight);
+    midiSelect[i].option('Harp', 0);
+    midiSelect[i].option('Piano', 1);
+    midiSelect[i].option('Celesta', 2);
+    midiSelect[i].option('Xylophone', 3);
+    midiSelect[i].option('Cello', 4);
+    midiSelect[i].option('Accordion', 5);
+    midiSelect[i].option('Guitar', 6);
+    midiSelect[i].option('Percussion', 7);
+    midiSelect[i].changed(() => {
+      current_sensor = i;
+      midiChanged();
+    });
+    midiSelect[i].hide();
+
+    // Buffer dropdown
+    buffSelect[i] = p.createSelect();
+    buffSelect[i].position(
+      x + padding,
+      startY + controlHeight + rowGap
+    );
+    buffSelect[i].size(controlWidth, controlHeight);
+    buffSelect[i].option('Garden', 0);
+    buffSelect[i].option('Birds', 1);
+    buffSelect[i].option('Meanwood', 2);
+    buffSelect[i].option('Ancra', 3);
+    buffSelect[i].option('Feedbackclick', 4);
+    buffSelect[i].option('Hardwet', 5);
+    buffSelect[i].option('Intiband', 6);
+    buffSelect[i].option('User', 7);
+    buffSelect[i].changed(() => {
+      current_sensor = i;
+      buffChanged();
+    });
+    buffSelect[i].hide();
+
+    // MIDI volume slider
+    midiVol[i] = p.createSlider(0, 1, 1, 0.01);
+    midiVol[i].position(
+      x + padding,
+      startY + 2 * (controlHeight + rowGap)
+    );
+    midiVol[i].size(controlWidth);
+    midiVol[i].hide();
+
+    // Buffer volume slider
+    buffVol[i] = p.createSlider(0, 1, 1, 0.01);
+    buffVol[i].position(
+      x + padding,
+      startY + 3 * (controlHeight + rowGap)
+    );
+    buffVol[i].size(controlWidth);
+    buffVol[i].hide();
+
+    // Scale dropdown
+    scaleSelect[i] = p.createSelect();
+    scaleSelect[i].position(
+      x + padding,
+      startY + 4 * (controlHeight + rowGap)
+    );
+    scaleSelect[i].size(controlWidth, controlHeight);
+    scaleSelect[i].option('Major', 0);
+    scaleSelect[i].option('Minor', 1);
+    scaleSelect[i].option('Iwato', 2);
+    scaleSelect[i].option('Pentatonic', 3);
+    scaleSelect[i].option('Niavent', 4);
+    scaleSelect[i].option('Blues', 5);
+    scaleSelect[i].changed(() => {
+      current_sensor = i;
+      scaleChanged();
+    });
+    scaleSelect[i].hide();
+
+    // User file selection
+    loadFile[i] = p.createFileInput(processFile);
+    loadFile[i].position(
+      x + padding,
+      startY + 5 * (controlHeight + rowGap)
+    );
+    loadFile[i].hide();
   }
+}
 
 	function processFile(file) {
 		//const objectURL = URL.createObjectURL(file);
