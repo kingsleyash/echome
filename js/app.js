@@ -811,7 +811,7 @@ async function main() { // Note that main is an async function to support async 
 			const param = device[i].parametersById.get("midi_inst");
 			param.changeEvent.subscribe((value) => {
 			  console.log('Parameter changed on device '+i+': '+value);
-			  midiSelect[i].selected(value);
+			  midiSelect[i].selected('Piano');
 			});
 			
 			loading+=1;
