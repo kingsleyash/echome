@@ -804,6 +804,13 @@ async function main() { // Note that main is an async function to support async 
 			      console.log(parameter.name);
 			});
 
+			let myVariable = 0;
+
+			const param = device[i].parametersById.get("midi_inst");
+			param.changeEvent.subscribe((value) => {
+			  console.log('Parameter changed on device '+i+': '+value);
+			});
+			
 			loading+=1;
 			console.log("Loaded " + loading + " out of " + num_sensors);
 		}
