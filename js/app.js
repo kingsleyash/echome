@@ -487,16 +487,17 @@ function drawInputs() {
     const x = margin + i * (boxWidth + gap);
 
     // Two columns, matching the indicator boxes
-    const padding = 5 * scale;
-    const colWidth = (boxWidth - 4 * padding) / 4;
-    const leftX = x + padding;
-    const rightX = x + 3 * padding + colWidth;
+  	const padding = 5 * scale;
+  	const colWidth = (boxWidth - 4 * padding) / 4;
+
+	const leftX = x + boxWidth * 0.25 - colWidth / 2;
+	const rightX = x + boxWidth * 0.75 - colWidth / 2;
 
     const controlHeight = 20 * scale;
     const rowGap = 5 * scale;
 
     // Controls start below the indicators
-    const startY = boxY + 125 * scale;
+    const startY = boxY + 130 * scale;
 
     // MIDI instrument: left column
     midiSelect[i] = p.createSelect();
