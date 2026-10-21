@@ -714,7 +714,7 @@ function drawCircularBar(value, maxValue, radius, thickness, bottom = false){
 	    if(p.mouseX>((100+innerWidth/2)-innerHeight/12) && p.mouseX<((100+innerWidth/2)+innerHeight/12) && p.mouseY>((innerHeight/2)-innerHeight/12) && p.mouseY<((innerHeight/2)+innerHeight/12)) {
 	      console.log("Starting Audio");
 	      startAudio();
-				slider.show();
+		  //slider.show();
 	    };
 
 	    if(p.mouseX>80&&p.mouseX<150&&p.mouseY>460&&p.mouseY<530) {
