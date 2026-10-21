@@ -511,10 +511,10 @@ function drawSensors(){
   }
 
     // Create a slider and place it in the centre circle.
-    slider = p.createSlider(0, 1, 1, 0.01);
-    slider.position(55, 380);
-    slider.size(230);
-	slider.hide();
+    //slider = p.createSlider(0, 1, 1, 0.01);
+    //slider.position(55, 380);
+    //slider.size(230);
+	//slider.hide();
 	
   }
 
@@ -568,20 +568,20 @@ function drawSensors(){
     // make input box
     p.strokeWeight(2);
     p.stroke(p.color(0, 102, 153));
-    p.line(30, 100, 300, 100);
-    p.line(30, 400, 300, 400);
-    p.line(30, 700, 300, 700);
-    p.line(30, 100, 30, 700);
-    p.line(300, 100, 300, 700);
+    p.line(innerWidth-330, 100, 300, 100);
+    p.line(innerWidth-330, 400, 300, 400);
+    p.line(innerWidth-330, 700, 300, 700);
+    p.line(innerWidth-330, 100, 30, 700);
+    p.line(innerWidth-30, 100, 300, 700);
 
-    p.textSize(16);
-    p.fill(0, 102, 153);
-    p.strokeWeight(0);
-    p.textAlign(p.LEFT, p.CENTER);
-    p.text('master volume', 110, 345);
+    //p.textSize(16);
+    //p.fill(0, 102, 153);
+    //p.strokeWeight(0);
+    //p.textAlign(p.LEFT, p.CENTER);
+    //p.text('master volume', 110, 345);
 
-		p.textAlign(p.LEFT, p.TOP);
-		p.text('1. Click on centre circle to switch on the audio \n\n2. Click on the sensor number to connect and access the settings for each sensor \n\n3. Click on the grey squares below to turn on midi or buffer instrument', 50, 120, 240, 430);
+	p.textAlign(p.LEFT, p.TOP);
+	p.text('1. Click on centre circle to switch on the audio \n\n2. Click on the sensor number to connect and access the settings for each sensor \n\n3. Click on the grey squares below to turn on midi or buffer instrument', innerWidth-310, 120, 240, 430);
 
   }
 
@@ -611,9 +611,9 @@ function drawSensors(){
 
   function getInputs(){
     // Use the slider as a grayscale value.
-      let g = slider.value();
+      //let g = slider.value();
       //if(g!=0) sendToMax("volume",Number(g));
-      setVolume(g);
+      //setVolume(g);
 
       if(current_sensor!=null) {
         g = midiVol[current_sensor].value();
