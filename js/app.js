@@ -612,8 +612,8 @@ function drawSensors(){
   function getInputs(){
     // Use the slider as a grayscale value.
       //let g = slider.value();
-      //if(g!=0) sendToMax("volume",Number(g));
-      //setVolume(g);
+      if(g!=0) sendToMax("volume",Number(g));
+      setVolume(g);
 
       if(current_sensor!=null) {
         g = midiVol[current_sensor].value();
@@ -715,6 +715,8 @@ function drawCircularBar(value, maxValue, radius, thickness, bottom = false){
 	      console.log("Starting Audio");
 	      startAudio();
 		  //slider.show();
+		  sendToMax("volume",1.0);
+      	  setVolume(1.0);
 	    };
 
 	    if(p.mouseX>80&&p.mouseX<150&&p.mouseY>460&&p.mouseY<530) {
