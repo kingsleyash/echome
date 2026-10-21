@@ -612,8 +612,8 @@ function drawSensors(){
   function getInputs(){
     // Use the slider as a grayscale value.
       //let g = slider.value();
-      if(g!=0) sendToMax("volume",Number(g));
-      setVolume(g);
+      //if(g!=0) sendToMax("volume",Number(g));
+      //setVolume(g);
 
       if(current_sensor!=null) {
         g = midiVol[current_sensor].value();
