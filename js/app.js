@@ -459,7 +459,7 @@ function drawSensors(){
   function drawInputs(){
     for(i=0; i<num_sensors; i++){
         midiSelect[i] = p.createSelect();
-        midiSelect[i].position(70, 550);
+        midiSelect[i].position(70, innerHeight-125);
         midiSelect[i].option('Harp', 0);
         midiSelect[i].option('Piano', 1);
         midiSelect[i].option('Celesta', 2);
@@ -472,7 +472,7 @@ function drawSensors(){
         midiSelect[i].hide();
 
         buffSelect[i] = p.createSelect();
-        buffSelect[i].position(170, 550);
+        buffSelect[i].position(170, innerHeight-125);
         buffSelect[i].option('Garden', 0);
         buffSelect[i].option('Birds', 1);
         buffSelect[i].option('Meanwood', 2);
@@ -485,29 +485,29 @@ function drawSensors(){
         buffSelect[i].hide();
 
         midiVol[i] = p.createSlider(0, 1, 1, 0.01);
-        midiVol[i].position(65, 580);
+        midiVol[i].position(65, innerHeight-175);
         midiVol[i].size(90);
         midiVol[i].hide();
 
         buffVol[i] = p.createSlider(0, 1, 1, 0.01);
-        buffVol[i].position(175, 580);
+        buffVol[i].position(175, innerHeight-175);
         buffVol[i].size(90);
         buffVol[i].hide();
 
 		scaleSelect[i] = p.createSelect();
-        scaleSelect[i].position(70, 620);
-				scaleSelect[i].option('Major', 0);
-				scaleSelect[i].option('Minor', 1);
-				scaleSelect[i].option('Iwato', 2);
-				scaleSelect[i].option('Pentatonic', 3);
-				scaleSelect[i].option('Niavent', 4);
-				scaleSelect[i].option('Blues', 5);
-				scaleSelect[i].changed(scaleChanged);
-				scaleSelect[i].hide();
+        scaleSelect[i].position(70, innerHeight-150);
+		scaleSelect[i].option('Major', 0);
+		scaleSelect[i].option('Minor', 1);
+		scaleSelect[i].option('Iwato', 2);
+		scaleSelect[i].option('Pentatonic', 3);
+		scaleSelect[i].option('Niavent', 4);
+		scaleSelect[i].option('Blues', 5);
+		scaleSelect[i].changed(scaleChanged);
+		scaleSelect[i].hide();
 
-				loadFile[i] = p.createFileInput(processFile);
-				loadFile[i].position(180, 618);
-				loadFile[i].hide();
+		loadFile[i] = p.createFileInput(processFile);
+		loadFile[i].position(180, innerHeight-150);
+		loadFile[i].hide();
   }
 
     // Create a slider and place it in the centre circle.
@@ -592,25 +592,25 @@ function drawSensors(){
         // make input box
 		p.strokeWeight(2);
     	p.stroke(p.color(0, 102, 153));
-		p.line(50, innerHeight-300, 300, innerHeight-300);
-    	p.line(50, innerHeight-50, 300, innerHeight-50);
-    	p.line(50, innerHeight-50, 50, innerHeight-300);
-    	p.line(300, innerHeight-50, 300, innerHeight-300);
+		p.line(50, innerHeight-250, 250, innerHeight-250);
+    	p.line(50, innerHeight-50, 250, innerHeight-50);
+    	p.line(50, innerHeight-50, 50, innerHeight-250);
+    	p.line(250, innerHeight-50, 250, innerHeight-250);
         p.textSize(24);
         p.fill(0, 102, 153);
         p.strokeWeight(0);
         p.textAlign(p.CENTER, p.CENTER);
 				//console.log(sensor_nums[current_sensor]);
-        p.text('sensor '+sensor_nums[current_sensor], 175, innerHeight-200);
+        p.text('sensor '+sensor_nums[current_sensor], 150, innerHeight-230);
 
         //p.noFill();
         if(midiOn[current_sensor]) p.fill(0, 202, 53);
         else p.fill(50, 0, 0);
-        p.rect(75, innerHeight-150, 50, 50);
+        p.rect(100, innerHeight-200, 50, 50);
 
         if(buffOn[current_sensor]) p.fill(0, 202, 53);
         else p.fill(50, 0, 0);
-        p.rect(185, innerHeight-150, 50, 50);
+        p.rect(200, innerHeight-200, 50, 50);
       }
 
     }
@@ -807,12 +807,21 @@ async function main() { // Note that main is an async function to support async 
 			});
 
 			const param = device[i].parametersById.get("midi_inst");
-
     		if (param) {
         		param.changeEvent.subscribe((value) => {
-            	console.log('Parameter changed on device ' + i + ': ' + value);
+            	//console.log('Parameter changed on device ' + i + ': ' + value);
             	if (midiSelect[i]) {
                 	midiSelect[i].selected(String(Math.round(value)));
+            	}
+        		});
+    		}
+
+			const param1 = device[i].parametersById.get("buff_inst");
+    		if (param1) {
+        		param1.changeEvent.subscribe((value) => {
+            	//console.log('Parameter changed on device ' + i + ': ' + value);
+            	if (buffSelect[i]) {
+                	buffSelect[i].selected(String(Math.round(value)));
             	}
         		});
     		}
