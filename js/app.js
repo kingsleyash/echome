@@ -568,11 +568,11 @@ function drawSensors(){
     // make input box
     p.strokeWeight(2);
     p.stroke(p.color(0, 102, 153));
-    p.line(innerWidth-330, 100, innerWidth-30, 100);
-    p.line(innerWidth-330, 400, innerWidth-30, 400);
+    p.line(innerWidth-330, 30, innerWidth-30, 30);
+    p.line(innerWidth-330, 300, innerWidth-30, 300);
     //p.line(innerWidth-330, 700, innerWidth-30, 700);
-    p.line(innerWidth-330, 100, innerWidth-30, 400);
-    p.line(innerWidth-30, 100, innerWidth-330, 400);
+    p.line(innerWidth-330, 30, innerWidth-330, 300);
+    p.line(innerWidth-30, 30, innerWidth-30, 300);
 
     p.textSize(16);
     p.fill(0, 102, 153);
