@@ -569,10 +569,10 @@ function drawSensors(){
     p.strokeWeight(2);
     p.stroke(p.color(0, 102, 153));
     p.line(innerWidth-330, 30, innerWidth-30, 30);
-    p.line(innerWidth-330, 300, innerWidth-30, 300);
+    p.line(innerWidth-330, 280, innerWidth-30, 280);
     //p.line(innerWidth-330, 700, innerWidth-30, 700);
-    p.line(innerWidth-330, 30, innerWidth-330, 300);
-    p.line(innerWidth-30, 30, innerWidth-30, 300);
+    p.line(innerWidth-330, 30, innerWidth-330, 280);
+    p.line(innerWidth-30, 30, innerWidth-30, 280);
 
     p.textSize(16);
     p.fill(0, 102, 153);
@@ -581,7 +581,7 @@ function drawSensors(){
     //p.text('master volume', 110, 345);
 
 	p.textAlign(p.LEFT, p.TOP);
-	p.text('1. Click on centre circle to switch on the audio \n\n2. Click on the sensor number to connect and access the settings for each sensor \n\n3. Click on the grey squares below to turn on midi or buffer instrument', innerWidth-310, 40, 240, 430);
+	p.text('1. Click on centre circle to switch on the audio \n\n2. Click on the sensor number to connect and access the settings for each sensor \n\n3. Click on the grey squares to turn on midi or buffer instrument', innerWidth-300, 40, 240, 430);
 
   }
 
@@ -590,21 +590,25 @@ function drawSensors(){
 
       if(current_sensor!=null){
         // make input box
+		p.line(30, innerHeight-130, 100, innerHeight-130);
+    	p.line(30, innerHeight-30, 100, innerHeight-30);
+    	p.line(30, innerHeight-30, 30, innerHeight-130);
+    	p.line(100, innerHeigh-30, 100, innerHeight-130);
         p.textSize(24);
         p.fill(0, 102, 153);
         p.strokeWeight(0);
         p.textAlign(p.CENTER, p.CENTER);
 				//console.log(sensor_nums[current_sensor]);
-        p.text('sensor '+sensor_nums[current_sensor], 165, 430);
+        p.text('sensor '+sensor_nums[current_sensor], 40, innerHeight-120);
 
         //p.noFill();
         if(midiOn[current_sensor]) p.fill(0, 202, 53);
         else p.fill(50, 0, 0);
-        p.rect(75, 460, 70, 70);
+        p.rect(75, innerHeight-50, 70, 70);
 
         if(buffOn[current_sensor]) p.fill(0, 202, 53);
         else p.fill(50, 0, 0);
-        p.rect(185, 460, 70, 70);
+        p.rect(185, innerHeight-50, 70, 70);
       }
 
     }
