@@ -471,6 +471,12 @@ function drawSensors(){
         midiSelect[i].changed(midiChanged);
         midiSelect[i].hide();
 
+		const param = device[i].parametersById.get("midi_inst");
+		param.changeEvent.subscribe((value) => {
+			  console.log('Parameter changed on device '+i+': '+value);
+			  midiSelect[i].selected(value);
+		});
+
         buffSelect[i] = p.createSelect();
         buffSelect[i].position(170, 550);
         buffSelect[i].option('Garden', 0);
@@ -806,12 +812,11 @@ async function main() { // Note that main is an async function to support async 
 			      console.log(parameter.name);
 			});
 
-			let myVariable = 0;
 
 			const param = device[i].parametersById.get("midi_inst");
 			param.changeEvent.subscribe((value) => {
 			  console.log('Parameter changed on device '+i+': '+value);
-			  midiSelect[i].selected('Piano');
+			  midiSelect[i].selected(value);
 			});
 			
 			loading+=1;
