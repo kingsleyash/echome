@@ -447,10 +447,10 @@ function drawSensors(){
       p.strokeWeight(2);
       if((i<num_sensors)&&myBLE[i].isConnected()&&(context.state == "running")){
         p.stroke(p.color(0, 255, 0));
-        p.line((innerWidth/2)+x, (innerHeight/2)-y, 100+innerWidth/2, innerHeight/2);
+        p.line((innerWidth/2)+x, (innerHeight/2)-y, innerWidth/2, innerHeight/2);
         }else{
         p.stroke(p.color(255, 0, 0));
-        p.line((innerWidth/2)+x, (innerHeight/2)-y, 100+innerWidth/2, innerHeight/2);
+        p.line((innerWidth/2)+x, (innerHeight/2)-y, innerWidth/2, innerHeight/2);
       }
 
     }
@@ -463,7 +463,7 @@ function getSensorLayout() {
 
   const availableWidth = innerWidth - 2 * margin;
   const boxWidth =
-    (availableWidth - gap * (num_sensors - 1)) / num_sensors;
+    (availableWidth - gap * (num_sensors)) / (num_sensors+1);
 
   const boxHeight = Math.min(200, innerHeight * 0.3);
   const scale = Math.min(1, boxWidth / 200, boxHeight / 200);
@@ -780,7 +780,7 @@ function drawCircularBar(value, maxValue, radius, thickness, bottom = false){
 		if (loading==num_sensors) {   // No mouse press until all devices loaded
 
 	    for(i=0; i<num_sensors; i++) {
-	      let x = 100+200*p.sin(i*(p.TWO_PI/num_sensors)); //calculate xPos
+	      let x = 200*p.sin(i*(p.TWO_PI/num_sensors)); //calculate xPos
 	      let y = 200*p.cos(i*(p.TWO_PI/num_sensors)); //calculate yPos
 	      //console.log('mouse clicked at x:'+p.mouseX+' y:'+p.mouseY);
 	      if(p.mouseX>(((innerWidth/2)+x)-50) && p.mouseX<(((innerWidth/2)+x)+50) && p.mouseY>(((innerHeight/2)-y)-50) && p.mouseY<(((innerHeight/2)-y)+50)) {
@@ -810,7 +810,7 @@ function drawCircularBar(value, maxValue, radius, thickness, bottom = false){
 	      };
 	    }
 
-	    if(p.mouseX>((100+innerWidth/2)-innerHeight/12) && p.mouseX<((100+innerWidth/2)+innerHeight/12) && p.mouseY>((innerHeight/2)-innerHeight/12) && p.mouseY<((innerHeight/2)+innerHeight/12)) {
+	    if(p.mouseX>((innerWidth/2)-innerHeight/12) && p.mouseX<((innerWidth/2)+innerHeight/12) && p.mouseY>((innerHeight/2)-innerHeight/12) && p.mouseY<((innerHeight/2)+innerHeight/12)) {
 	      console.log("Starting Audio");
 	      startAudio();
 		  //slider.show();
