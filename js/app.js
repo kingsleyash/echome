@@ -715,7 +715,7 @@ function drawCircularBar(value, maxValue, radius, thickness, bottom = false){
 	      console.log("Starting Audio");
 	      startAudio();
 		  //slider.show();
-		  sendToMax("volume",1.0);
+		  //sendToMax("volume",1.0);
       	  setVolume(1.0);
 	    };
 
