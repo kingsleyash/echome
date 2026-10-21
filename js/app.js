@@ -481,25 +481,27 @@ function getSensorLayout() {
 
 	
 function drawInputs() {
-  const layout = getSensorLayout();
-  const { margin, gap, boxWidth, boxHeight, scale, boxY } = layout;
+  const { margin, gap, boxWidth, scale, boxY } = getSensorLayout();
 
   for (let i = 0; i < num_sensors; i++) {
     const x = margin + i * (boxWidth + gap);
 
-    // Layout dimensions
+    // Two columns, matching the indicator boxes
     const padding = 5 * scale;
-    const controlWidth = Math.max(30, boxWidth - 2 * padding);
-    const controlHeight = 20 * scale;
+    const colWidth = (boxWidth - 4 * padding) / 2;
+    const leftX = x + padding;
+    const rightX = x + 3 * padding + colWidth;
 
-    // Controls start underneath the indicator boxes
-    const startY = boxY + 105 * scale;
+    const controlHeight = 20 * scale;
     const rowGap = 5 * scale;
 
-    // MIDI instrument dropdown
+    // Controls start below the indicators
+    const startY = boxY + 105 * scale;
+
+    // MIDI instrument: left column
     midiSelect[i] = p.createSelect();
-    midiSelect[i].position(x + padding, startY);
-    midiSelect[i].size(controlWidth, controlHeight);
+    midiSelect[i].position(leftX, startY);
+    midiSelect[i].size(colWidth, controlHeight);
     midiSelect[i].option('Harp', 0);
     midiSelect[i].option('Piano', 1);
     midiSelect[i].option('Celesta', 2);
@@ -514,13 +516,35 @@ function drawInputs() {
     });
     midiSelect[i].hide();
 
-    // Buffer dropdown
-    buffSelect[i] = p.createSelect();
-    buffSelect[i].position(
-      x + padding,
-      startY + controlHeight + rowGap
+    // MIDI volume: left column
+    midiVol[i] = p.createSlider(0, 1, 1, 0.01);
+    midiVol[i].position(leftX, startY + controlHeight + rowGap);
+    midiVol[i].size(colWidth);
+    midiVol[i].hide();
+
+    // Scale: left column
+    scaleSelect[i] = p.createSelect();
+    scaleSelect[i].position(
+      leftX,
+      startY + 2 * (controlHeight + rowGap)
     );
-    buffSelect[i].size(controlWidth, controlHeight);
+    scaleSelect[i].size(colWidth, controlHeight);
+    scaleSelect[i].option('Major', 0);
+    scaleSelect[i].option('Minor', 1);
+    scaleSelect[i].option('Iwato', 2);
+    scaleSelect[i].option('Pentatonic', 3);
+    scaleSelect[i].option('Niavent', 4);
+    scaleSelect[i].option('Blues', 5);
+    scaleSelect[i].changed(() => {
+      current_sensor = i;
+      scaleChanged();
+    });
+    scaleSelect[i].hide();
+
+    // Buffer selection: right column
+    buffSelect[i] = p.createSelect();
+    buffSelect[i].position(rightX, startY);
+    buffSelect[i].size(colWidth, controlHeight);
     buffSelect[i].option('Garden', 0);
     buffSelect[i].option('Birds', 1);
     buffSelect[i].option('Meanwood', 2);
@@ -535,53 +559,22 @@ function drawInputs() {
     });
     buffSelect[i].hide();
 
-    // MIDI volume slider
-    midiVol[i] = p.createSlider(0, 1, 1, 0.01);
-    midiVol[i].position(
-      x + padding,
-      startY + 2 * (controlHeight + rowGap)
-    );
-    midiVol[i].size(controlWidth);
-    midiVol[i].hide();
-
-    // Buffer volume slider
+    // Buffer volume: right column
     buffVol[i] = p.createSlider(0, 1, 1, 0.01);
-    buffVol[i].position(
-      x + padding,
-      startY + 3 * (controlHeight + rowGap)
-    );
-    buffVol[i].size(controlWidth);
+    buffVol[i].position(rightX, startY + controlHeight + rowGap);
+    buffVol[i].size(colWidth);
     buffVol[i].hide();
 
-    // Scale dropdown
-    scaleSelect[i] = p.createSelect();
-    scaleSelect[i].position(
-      x + padding,
-      startY + 4 * (controlHeight + rowGap)
-    );
-    scaleSelect[i].size(controlWidth, controlHeight);
-    scaleSelect[i].option('Major', 0);
-    scaleSelect[i].option('Minor', 1);
-    scaleSelect[i].option('Iwato', 2);
-    scaleSelect[i].option('Pentatonic', 3);
-    scaleSelect[i].option('Niavent', 4);
-    scaleSelect[i].option('Blues', 5);
-    scaleSelect[i].changed(() => {
-      current_sensor = i;
-      scaleChanged();
-    });
-    scaleSelect[i].hide();
-
-    // User file selection
+    // File upload: right column
     loadFile[i] = p.createFileInput(processFile);
     loadFile[i].position(
-      x + padding,
-      startY + 5 * (controlHeight + rowGap)
+      rightX,
+      startY + 2 * (controlHeight + rowGap)
     );
     loadFile[i].hide();
   }
 }
-
+	
 	function processFile(file) {
 		//const objectURL = URL.createObjectURL(file);
 		console.log("Loaded: " + file.name + " " + file.type + " " + file.data);
