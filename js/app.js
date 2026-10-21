@@ -494,7 +494,7 @@ function drawSensors(){
         buffVol[i].size(90);
         buffVol[i].hide();
 
-				scaleSelect[i] = p.createSelect();
+		scaleSelect[i] = p.createSelect();
         scaleSelect[i].position(70, 620);
 				scaleSelect[i].option('Major', 0);
 				scaleSelect[i].option('Minor', 1);
@@ -811,7 +811,7 @@ async function main() { // Note that main is an async function to support async 
 			const param = device[i].parametersById.get("midi_inst");
 			param.changeEvent.subscribe((value) => {
 			  console.log('Parameter changed on device '+i+': '+value);
-			  midiSelect[i].value(value);
+			  midiSelect[i].selected(value);
 			});
 			
 			loading+=1;
