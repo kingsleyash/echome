@@ -681,8 +681,8 @@ function drawCircularBar(value, maxValue, radius, thickness, bottom = false){
 		if (loading==num_sensors) {   // No mouse press until all devices loaded
 
 	    for(i=0; i<num_sensors; i++) {
-	      let x = 100+250*p.sin(i*(p.TWO_PI/num_sensors)); //calculate xPos
-	      let y = 250*p.cos(i*(p.TWO_PI/num_sensors)); //calculate yPos
+	      let x = 100+200*p.sin(i*(p.TWO_PI/num_sensors)); //calculate xPos
+	      let y = 200*p.cos(i*(p.TWO_PI/num_sensors)); //calculate yPos
 	      //console.log('mouse clicked at x:'+p.mouseX+' y:'+p.mouseY);
 	      if(p.mouseX>(((innerWidth/2)+x)-50) && p.mouseX<(((innerWidth/2)+x)+50) && p.mouseY>(((innerHeight/2)-y)-50) && p.mouseY<(((innerHeight/2)-y)+50)) {
 	        //console.log('mouse clicked in circle '+ i);
