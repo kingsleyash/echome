@@ -819,29 +819,54 @@ function drawCircularBar(value, maxValue, radius, thickness, bottom = false){
       	  setVolume(1.0);
 	    };
 
-	    if(p.mouseX>80&&p.mouseX<150&&p.mouseY>460&&p.mouseY<530) {
-	      if(midiOn[current_sensor]==0) {
-	        console.log('midi on '+sensor_nums[current_sensor]);
-	        sendToMax(current_sensor, "midi_on", 1);
-	        midiOn[current_sensor]=1;
-	      } else {
-	        console.log('midi off '+sensor_nums[current_sensor]);
-	        sendToMax(current_sensor, "midi_on", 0);
-	        midiOn[current_sensor]=0;
-	      }
-	      //sendToMax('midi_on')
-	    }
-	    if(p.mouseX>180&&p.mouseX<250&&p.mouseY>460&&p.mouseY<530) {
-	      if(buffOn[current_sensor]==0) {
-	        console.log('buff on '+sensor_nums[current_sensor]);
-	        sendToMax(current_sensor, "buff_on", 1);
-	        buffOn[current_sensor]=1;
-	      } else {
-	        console.log('buff off '+sensor_nums[current_sensor]);
-	        sendToMax(current_sensor, "buff_on", 0);
-	        buffOn[current_sensor]=0;
-	      }
-	    }
+		const { margin, gap, boxWidth, scale, boxY } = getSensorLayout();
+		
+		for (let i = 0; i < num_sensors; i++) {
+		  const x = margin + i * (boxWidth + gap);
+		
+		  const indicatorSize = Math.min(50 * scale, boxWidth * 0.3);
+		  const indicatorY = boxY + 50 * scale;
+		  const indicatorGap = 10 * scale;
+		  const totalIndicatorsWidth = 2 * indicatorSize + indicatorGap;
+		  const firstIndicatorX = x + (boxWidth - totalIndicatorsWidth) / 2;
+		
+		  // MIDI indicator: left square
+		  if (
+		    p.mouseX >= firstIndicatorX &&
+		    p.mouseX <= firstIndicatorX + indicatorSize &&
+		    p.mouseY >= indicatorY &&
+		    p.mouseY <= indicatorY + indicatorSize
+		  ) {
+		    midiOn[i] = midiOn[i] ? 0 : 1;
+		
+		    console.log(
+		      'midi ' + (midiOn[i] ? 'on ' : 'off ') + sensor_nums[i]
+		    );
+		
+		    sendToMax(i, "midi_on", midiOn[i]);
+		    break;
+		  }
+
+	  // Buffer indicator: right square
+	  const buffX = firstIndicatorX + indicatorSize + indicatorGap;
+
+	  if (
+	    p.mouseX >= buffX &&
+	    p.mouseX <= buffX + indicatorSize &&
+	    p.mouseY >= indicatorY &&
+	    p.mouseY <= indicatorY + indicatorSize
+	  ) {
+	    buffOn[i] = buffOn[i] ? 0 : 1;
+	
+	    console.log(
+	      'buff ' + (buffOn[i] ? 'on ' : 'off ') + sensor_nums[i]
+	    );
+	
+	    sendToMax(i, "buff_on", buffOn[i]);
+	    break;
+	  }
+	}
+			
 		}
   }
 };
