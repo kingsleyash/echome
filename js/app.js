@@ -590,25 +590,27 @@ function drawSensors(){
 
       if(current_sensor!=null){
         // make input box
-		p.line(30, innerHeight-130, 100, innerHeight-130);
+		p.strokeWeight(2);
+    	p.stroke(p.color(0, 102, 153));
+		p.line(30, innerHeight-150, 100, innerHeight-150);
     	p.line(30, innerHeight-30, 100, innerHeight-30);
-    	p.line(30, innerHeight-30, 30, innerHeight-130);
-    	p.line(100, innerHeight-30, 100, innerHeight-130);
+    	p.line(30, innerHeight-30, 30, innerHeight-150);
+    	p.line(100, innerHeight-30, 100, innerHeight-150);
         p.textSize(24);
         p.fill(0, 102, 153);
         p.strokeWeight(0);
         p.textAlign(p.CENTER, p.CENTER);
 				//console.log(sensor_nums[current_sensor]);
-        p.text('sensor '+sensor_nums[current_sensor], 40, innerHeight-120);
+        p.text('sensor '+sensor_nums[current_sensor], 65, innerHeight-150);
 
         //p.noFill();
         if(midiOn[current_sensor]) p.fill(0, 202, 53);
         else p.fill(50, 0, 0);
-        p.rect(75, innerHeight-50, 70, 70);
+        p.rect(75, innerHeight-150, 70, 70);
 
         if(buffOn[current_sensor]) p.fill(0, 202, 53);
         else p.fill(50, 0, 0);
-        p.rect(185, innerHeight-50, 70, 70);
+        p.rect(185, innerHeight-150, 70, 70);
       }
 
     }
@@ -809,6 +811,7 @@ async function main() { // Note that main is an async function to support async 
 			const param = device[i].parametersById.get("midi_inst");
 			param.changeEvent.subscribe((value) => {
 			  console.log('Parameter changed on device '+i+': '+value);
+			  midiSelect[i].value(value);
 			});
 			
 			loading+=1;
