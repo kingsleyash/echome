@@ -581,7 +581,7 @@ function drawSensors(){
     //p.text('master volume', 110, 345);
 
 	p.textAlign(p.LEFT, p.TOP);
-	p.text('1. Click on centre circle to switch on the audio \n\n2. Click on the sensor number to connect and access the settings for each sensor \n\n3. Click on the grey squares to turn on midi or buffer instrument', innerWidth-300, 40, 240, 430);
+	p.text('1. Click on centre circle to switch on the audio \n\n2. Click on the sensor number to connect and access the settings for each sensor \n\n3. Click on the grey squares to turn on midi or buffer instrument', innerWidth-300, 50, 240, 430);
 
   }
 
