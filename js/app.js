@@ -592,16 +592,16 @@ function drawSensors(){
         // make input box
 		p.strokeWeight(2);
     	p.stroke(p.color(0, 102, 153));
-		p.line(30, innerHeight-150, 100, innerHeight-150);
-    	p.line(30, innerHeight-30, 100, innerHeight-30);
-    	p.line(30, innerHeight-30, 30, innerHeight-150);
-    	p.line(100, innerHeight-30, 100, innerHeight-150);
+		p.line(50, innerHeight-200, 200, innerHeight-200);
+    	p.line(50, innerHeight-50, 200, innerHeight-50);
+    	p.line(50, innerHeight-50, 50, innerHeight-200);
+    	p.line(200, innerHeight-50, 200, innerHeight-200);
         p.textSize(24);
         p.fill(0, 102, 153);
         p.strokeWeight(0);
         p.textAlign(p.CENTER, p.CENTER);
 				//console.log(sensor_nums[current_sensor]);
-        p.text('sensor '+sensor_nums[current_sensor], 65, innerHeight-150);
+        p.text('sensor '+sensor_nums[current_sensor], 90, innerHeight-200);
 
         //p.noFill();
         if(midiOn[current_sensor]) p.fill(0, 202, 53);
