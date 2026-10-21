@@ -463,7 +463,7 @@ function getSensorLayout() {
 
   const availableWidth = innerWidth - 2 * margin;
   const boxWidth =
-    (availableWidth - gap * (num_sensors)) / (num_sensors+1);
+    (availableWidth - gap * (num_sensors-1)) / (num_sensors);
 
   const boxHeight = Math.min(200, innerHeight * 0.3);
   const scale = Math.min(1, boxWidth / 200, boxHeight / 200);
@@ -488,7 +488,7 @@ function drawInputs() {
 
     // Two columns, matching the indicator boxes
     const padding = 5 * scale;
-    const colWidth = (boxWidth - 4 * padding) / 2;
+    const colWidth = (boxWidth - 4 * padding) / 4;
     const leftX = x + padding;
     const rightX = x + 3 * padding + colWidth;
 
@@ -496,7 +496,7 @@ function drawInputs() {
     const rowGap = 5 * scale;
 
     // Controls start below the indicators
-    const startY = boxY + 105 * scale;
+    const startY = boxY + 125 * scale;
 
     // MIDI instrument: left column
     midiSelect[i] = p.createSelect();
