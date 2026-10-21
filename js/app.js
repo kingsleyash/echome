@@ -303,7 +303,7 @@ let s = function(p) {
 			p.textSize(24);
 			p.fill(0, 102, 153);
 			p.textAlign(p.CENTER, p.CENTER);
-			p.text('Loading sounds and instruments for sensor '+ (loading+1)+' out of '+num_sensors, innerWidth/2, 70);
+			p.text('Loading sounds and instruments for sensor '+ (loading+1)+' out of '+num_sensors, innerWidth/2, (innerHeight/2)-70);
 
 			p.textSize(64);
 			p.fill(0, 102, 153);
@@ -581,7 +581,7 @@ function drawSensors(){
     //p.text('master volume', 110, 345);
 
 	p.textAlign(p.LEFT, p.TOP);
-	p.text('1. Click on centre circle to switch on the audio \n\n2. Click on the sensor number to connect and access the settings for each sensor \n\n3. Click on the grey squares below to turn on midi or buffer instrument', innerWidth-310, 120, 240, 430);
+	p.text('1. Click on centre circle to switch on the audio \n\n2. Click on the sensor number to connect and access the settings for each sensor \n\n3. Click on the grey squares below to turn on midi or buffer instrument', innerWidth-310, 40, 240, 430);
 
   }
 
