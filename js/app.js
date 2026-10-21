@@ -593,7 +593,7 @@ function drawSensors(){
 		p.line(30, innerHeight-130, 100, innerHeight-130);
     	p.line(30, innerHeight-30, 100, innerHeight-30);
     	p.line(30, innerHeight-30, 30, innerHeight-130);
-    	p.line(100, innerHeigh-30, 100, innerHeight-130);
+    	p.line(100, innerHeight-30, 100, innerHeight-130);
         p.textSize(24);
         p.fill(0, 102, 153);
         p.strokeWeight(0);
