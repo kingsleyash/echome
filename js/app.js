@@ -586,34 +586,70 @@ function drawSensors(){
   }
 
 
-    function drawSensorSettings(){
+function drawSensorSettings() {
 
-      if(current_sensor!=null){
-        // make input box
-		p.strokeWeight(2);
-    	p.stroke(p.color(0, 102, 153));
-		p.line(50, innerHeight-250, 250, innerHeight-250);
-    	p.line(50, innerHeight-50, 250, innerHeight-50);
-    	p.line(50, innerHeight-50, 50, innerHeight-250);
-    	p.line(250, innerHeight-50, 250, innerHeight-250);
-        p.textSize(24);
-        p.fill(0, 102, 153);
-        p.strokeWeight(0);
-        p.textAlign(p.CENTER, p.CENTER);
-				//console.log(sensor_nums[current_sensor]);
-        p.text('sensor '+sensor_nums[current_sensor], 150, innerHeight-230);
+  const margin = 10;
+  const gap = 8;
+  const bottomMargin = 10;
 
-        //p.noFill();
-        if(midiOn[current_sensor]) p.fill(0, 202, 53);
-        else p.fill(50, 0, 0);
-        p.rect(100, innerHeight-200, 50, 50);
+  // Calculate box width to fit all sensors on screen
+  const availableWidth = innerWidth - 2 * margin;
+  const boxWidth = (availableWidth - gap * (num_sensors - 1)) / num_sensors;
 
-        if(buffOn[current_sensor]) p.fill(0, 202, 53);
-        else p.fill(50, 0, 0);
-        p.rect(200, innerHeight-200, 50, 50);
-      }
+  // Scale box height and contents according to width
+  const boxHeight = Math.min(200, innerHeight * 0.3);
+  const scale = Math.min(1, boxWidth / 200, boxHeight / 200);
+  const boxY = innerHeight - boxHeight - bottomMargin;
 
-    }
+  p.strokeWeight(2);
+  p.textAlign(p.CENTER, p.CENTER);
+  p.textSize(24 * scale);
+
+  for (let i = 0; i < num_sensors; i++) {
+
+    const x = margin + i * (boxWidth + gap);
+
+    // Box outline
+    p.stroke(p.color(0, 102, 153));
+    p.noFill();
+    p.rect(x, boxY, boxWidth, boxHeight);
+
+    // Sensor label
+    p.noStroke();
+    p.fill(0, 102, 153);
+    p.text(
+      'sensor ' + sensor_nums[i],
+      x + boxWidth / 2,
+      boxY + 20 * scale
+    );
+
+    // Indicator dimensions and positions
+    const indicatorSize = Math.min(50 * scale, boxWidth * 0.3);
+    const indicatorY = boxY + 50 * scale;
+    const indicatorGap = 10 * scale;
+    const totalIndicatorsWidth = 2 * indicatorSize + indicatorGap;
+    const firstIndicatorX =
+      x + (boxWidth - totalIndicatorsWidth) / 2;
+
+    // MIDI indicator
+    p.fill(midiOn[i] ? p.color(0, 202, 53) : p.color(50, 0, 0));
+    p.rect(
+      firstIndicatorX,
+      indicatorY,
+      indicatorSize,
+      indicatorSize
+    );
+
+    // Buffer indicator
+    p.fill(buffOn[i] ? p.color(0, 202, 53) : p.color(50, 0, 0));
+    p.rect(
+      firstIndicatorX + indicatorSize + indicatorGap,
+      indicatorY,
+      indicatorSize,
+      indicatorSize
+    );
+  }
+}
 
   function getInputs(){
     // Use the slider as a grayscale value.
