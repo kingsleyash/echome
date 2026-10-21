@@ -332,7 +332,7 @@ let s = function(p) {
         p.stroke(0, 200, 0);
       }
       p.push();
-      p.translate((innerWidth/2)+100, innerHeight/2);
+      p.translate((innerWidth/2), innerHeight/2);
       p.circle(0, 0, innerHeight/6);
 
       p.textSize(20);
@@ -442,7 +442,7 @@ function drawSensors(){
 
   function drawConnections() {
     for(i=0; i<num_sensors; i++) {
-      let x = 100+200*p.sin(i*(p.TWO_PI/num_sensors)); //calculate xPos
+      let x = 200*p.sin(i*(p.TWO_PI/num_sensors)); //calculate xPos
       let y = 200*p.cos(i*(p.TWO_PI/num_sensors)); //calculate yPos
       p.strokeWeight(2);
       if((i<num_sensors)&&myBLE[i].isConnected()&&(context.state == "running")){
