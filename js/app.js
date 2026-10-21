@@ -471,12 +471,6 @@ function drawSensors(){
         midiSelect[i].changed(midiChanged);
         midiSelect[i].hide();
 
-		const param = device[i].parametersById.get("midi_inst");
-		param.changeEvent.subscribe((value) => {
-			  console.log('Parameter changed on device '+i+': '+value);
-			  midiSelect[i].selected(value);
-		});
-
         buffSelect[i] = p.createSelect();
         buffSelect[i].position(170, 550);
         buffSelect[i].option('Garden', 0);
@@ -784,7 +778,7 @@ async function main() { // Note that main is an async function to support async 
 
 
     // RNBO Device Setup
-		for (var i=0; i<num_sensors; i++) {
+		for (let i=0; i<num_sensors; i++) {
 
 			console.log("Creating RNBO device " + i);
 
@@ -812,12 +806,16 @@ async function main() { // Note that main is an async function to support async 
 			      console.log(parameter.name);
 			});
 
-
 			const param = device[i].parametersById.get("midi_inst");
-			param.changeEvent.subscribe((value) => {
-			  console.log('Parameter changed on device '+i+': '+value);
-			  midiSelect[i].selected(value);
-			});
+
+    		if (param) {
+        		param.changeEvent.subscribe((value) => {
+            	console.log('Parameter changed on device ' + i + ': ' + value);
+            	if (midiSelect[i]) {
+                	midiSelect[i].selected(String(Math.round(value)));
+            	}
+        		});
+    		}
 			
 			loading+=1;
 			console.log("Loaded " + loading + " out of " + num_sensors);
