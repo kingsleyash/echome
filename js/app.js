@@ -462,8 +462,15 @@ function getSensorLayout() {
   const bottomMargin = 10;
 
   const availableWidth = innerWidth - 2 * margin;
-  const boxWidth =
-    (availableWidth - gap * (num_sensors-1)) / (num_sensors);
+
+  // Limit box width to the width used when there are 4 sensors
+  const maxBoxWidth =
+    (availableWidth - gap * 3) / 4;
+
+  const boxWidth = Math.min(
+    maxBoxWidth,
+    (availableWidth - gap * (num_sensors - 1)) / num_sensors
+  );
 
   const boxHeight = Math.min(200, innerHeight * 0.3);
   const scale = Math.min(1, boxWidth / 200, boxHeight / 200);
