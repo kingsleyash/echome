@@ -447,10 +447,10 @@ function drawSensors(){
       p.strokeWeight(2);
       if((i<num_sensors)&&myBLE[i].isConnected()&&(context.state == "running")){
         p.stroke(p.color(0, 255, 0));
-        p.line((innerWidth/2)+x, (innerHeight/2)-y-50, innerWidth/2, innerHeight/2);
+        p.line((innerWidth/2)+x, (innerHeight/2)-y-50, innerWidth/2, (innerHeight/2)-50);
         }else{
         p.stroke(p.color(255, 0, 0));
-        p.line((innerWidth/2)+x, (innerHeight/2)-y-50, innerWidth/2, innerHeight/2);
+        p.line((innerWidth/2)+x, (innerHeight/2)-y-50, innerWidth/2, (innerHeight/2)-50);
       }
 
     }
@@ -827,10 +827,19 @@ function drawCircularBar(value, maxValue, radius, thickness, bottom = false){
       	  setVolume(1.0);
 	    };
 
-		const { margin, gap, boxWidth, scale, boxY } = getSensorLayout();
+		  const { margin, gap, boxWidth, scale, boxY } = getSensorLayout();
 		
-		for (let i = 0; i < num_sensors; i++) {
-		  const x = margin + i * (boxWidth + gap);
+		  // Centre the group of sensor boxes
+		  const totalWidth =
+		    num_sensors * boxWidth + (num_sensors - 1) * gap;
+		  const startX = Math.max(margin, (innerWidth - totalWidth) / 2);
+		
+		  for (let i = 0; i < num_sensors; i++) {
+		    const x = startX + i * (boxWidth + gap);
+			
+
+
+			
 		
 		  const indicatorSize = Math.min(50 * scale, boxWidth * 0.3);
 		  const indicatorY = boxY + 50 * scale;
