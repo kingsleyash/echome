@@ -459,7 +459,7 @@ function drawSensors(){
 function getSensorLayout() {
   const margin = 10;
   const gap = 8;
-  const bottomMargin = 10;
+  const bottomMargin = 30;
 
   const availableWidth = innerWidth - 2 * margin;
 
