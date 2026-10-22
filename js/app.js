@@ -353,7 +353,7 @@ function drawSensors(){
     for(let i = 0; i < num_sensors; i++){
 
         let x = 200 * p.sin(i * (p.TWO_PI / num_sensors));
-        let y = 50+200 * p.cos(i * (p.TWO_PI / num_sensors));
+        let y = 200 * p.cos(i * (p.TWO_PI / num_sensors));
 
         p.push();
         p.translate(x, -y);
