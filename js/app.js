@@ -232,6 +232,10 @@ let s = function(p) {
 
 	p.windowResized = function() {
 		p.resizeCanvas(innerWidth, innerHeight);
+		  // Reposition the existing controls
+  		repositionInputs();
+		  // Redraw using the new dimensions
+  		p.redraw();
 	}
 
 
@@ -586,7 +590,54 @@ function drawInputs() {
     );
     loadFile[i].hide();
   }
+
+   repositionInputs();
 }
+
+function repositionInputs() {
+  const { margin, gap, boxWidth, scale, boxY } = getSensorLayout();
+
+  // Match the centring used by drawSensorSettings()
+  const totalWidth =
+    num_sensors * boxWidth + (num_sensors - 1) * gap;
+  const startX = Math.max(margin, (innerWidth - totalWidth) / 2);
+
+  for (let i = 0; i < num_sensors; i++) {
+    const x = startX + i * (boxWidth + gap);
+
+    const padding = 5 * scale;
+    const colWidth = (boxWidth - 4 * padding) / 4;
+
+    const leftX = x + boxWidth * 0.25 - colWidth / 2;
+    const rightX = x + boxWidth * 0.75 - colWidth / 2;
+
+    const controlHeight = 20 * scale;
+    const rowGap = 5 * scale;
+    const startY = boxY + 130 * scale;
+
+    midiSelect[i].position(leftX, startY);
+    midiSelect[i].size(colWidth, controlHeight);
+
+    midiVol[i].position(leftX, startY + controlHeight + rowGap);
+    midiVol[i].size(colWidth);
+
+    scaleSelect[i].position(
+      leftX, startY + 2 * (controlHeight + rowGap)
+    );
+    scaleSelect[i].size(colWidth, controlHeight);
+
+    buffSelect[i].position(rightX, startY);
+    buffSelect[i].size(colWidth, controlHeight);
+
+    buffVol[i].position(rightX, startY + controlHeight + rowGap);
+    buffVol[i].size(colWidth);
+
+    loadFile[i].position(
+      rightX, startY + 2 * (controlHeight + rowGap)
+    );
+  }
+}
+	
 	
 	function processFile(file) {
 		//const objectURL = URL.createObjectURL(file);
