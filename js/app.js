@@ -332,7 +332,7 @@ let s = function(p) {
         p.stroke(0, 200, 0);
       }
       p.push();
-      p.translate((innerWidth/2), innerHeight/2);
+      p.translate((innerWidth/2), -50+innerHeight/2);
       p.circle(0, 0, innerHeight/6);
 
       p.textSize(20);
@@ -353,7 +353,7 @@ function drawSensors(){
     for(let i = 0; i < num_sensors; i++){
 
         let x = 200 * p.sin(i * (p.TWO_PI / num_sensors));
-        let y = 200 * p.cos(i * (p.TWO_PI / num_sensors));
+        let y = -50+200 * p.cos(i * (p.TWO_PI / num_sensors));
 
         p.push();
         p.translate(x, -y);
@@ -443,7 +443,7 @@ function drawSensors(){
   function drawConnections() {
     for(i=0; i<num_sensors; i++) {
       let x = 200*p.sin(i*(p.TWO_PI/num_sensors)); //calculate xPos
-      let y = 200*p.cos(i*(p.TWO_PI/num_sensors)); //calculate yPos
+      let y = -50+200*p.cos(i*(p.TWO_PI/num_sensors)); //calculate yPos
       p.strokeWeight(2);
       if((i<num_sensors)&&myBLE[i].isConnected()&&(context.state == "running")){
         p.stroke(p.color(0, 255, 0));
@@ -459,7 +459,7 @@ function drawSensors(){
 function getSensorLayout() {
   const margin = 10;
   const gap = 8;
-  const bottomMargin = 30;
+  const bottomMargin = 20;
 
   const availableWidth = innerWidth - 2 * margin;
 
@@ -486,12 +486,17 @@ function getSensorLayout() {
   };
 }
 
-	
 function drawInputs() {
   const { margin, gap, boxWidth, scale, boxY } = getSensorLayout();
 
+  // Centre the group of sensor boxes
+  const totalWidth =
+    num_sensors * boxWidth + (num_sensors - 1) * gap;
+  const startX = Math.max(margin, (innerWidth - totalWidth) / 2);
+
   for (let i = 0; i < num_sensors; i++) {
-    const x = margin + i * (boxWidth + gap);
+    const x = startX + i * (boxWidth + gap);
+	  
 
     // Two columns, matching the indicator boxes
   	const padding = 5 * scale;
