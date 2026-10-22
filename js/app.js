@@ -653,18 +653,13 @@ function drawInputs() {
 
 function drawSensorSettings() {
 
-  const margin = 10;
-  const gap = 8;
-  const bottomMargin = 10;
+  const { margin, gap, boxWidth, boxHeight, scale, boxY } =
+    getSensorLayout();
 
-  // Calculate box width to fit all sensors on screen
-  const availableWidth = innerWidth - 2 * margin;
-  const boxWidth = (availableWidth - gap * (num_sensors - 1)) / num_sensors;
-
-  // Scale box height and contents according to width
-  const boxHeight = Math.min(200, innerHeight * 0.3);
-  const scale = Math.min(1, boxWidth / 200, boxHeight / 200);
-  const boxY = innerHeight - boxHeight - bottomMargin;
+  // Centre the group of boxes when there are fewer than 4 sensors
+  const totalWidth =
+    num_sensors * boxWidth + (num_sensors - 1) * gap;
+  const startX = Math.max(margin, (innerWidth - totalWidth) / 2);
 
   p.strokeWeight(2);
   p.textAlign(p.CENTER, p.CENTER);
@@ -672,7 +667,7 @@ function drawSensorSettings() {
 
   for (let i = 0; i < num_sensors; i++) {
 
-    const x = margin + i * (boxWidth + gap);
+    const x = startX + i * (boxWidth + gap);
 
     // Box outline
     p.stroke(p.color(0, 102, 153));
@@ -692,7 +687,8 @@ function drawSensorSettings() {
     const indicatorSize = Math.min(50 * scale, boxWidth * 0.3);
     const indicatorY = boxY + 50 * scale;
     const indicatorGap = 10 * scale;
-    const totalIndicatorsWidth = 2 * indicatorSize + indicatorGap;
+    const totalIndicatorsWidth =
+      2 * indicatorSize + indicatorGap;
     const firstIndicatorX =
       x + (boxWidth - totalIndicatorsWidth) / 2;
 
